@@ -160,7 +160,13 @@ export default function MyBookings() {
   };
 
   return (
-    <div id="my-bookings-page" className={styles.bookingsContainer}>
+    <div 
+      id="my-bookings-page" 
+      className={styles.bookingsContainer}
+      data-bookings-count={bookings.length}
+      data-waitlist-count={waitlist.length}
+      data-loading={loading}
+    >
       <h1 className={styles.pageTitle}>My Bookings</h1>
       
       {error && (
@@ -170,19 +176,29 @@ export default function MyBookings() {
       )}
       
       {bookings.length === 0 && waitlist.length === 0 ? (
-        <div className={styles.emptyState}>
+        <div id="empty-bookings-state" className={styles.emptyState}>
           <p>You haven't booked any classes yet. <a href="/schedule">Browse available classes</a></p>
         </div>
       ) : (
         <>
           {bookings.length > 0 && (
-            <div className={styles.section}>
-              <h2 className={styles.sectionTitle}>Confirmed Bookings</h2>
+            <div id="confirmed-bookings-section" className={styles.section}>
+              <h2 id="confirmed-bookings-title" className={styles.sectionTitle}>Confirmed Bookings</h2>
               <div>
                 {bookings.map(booking => (
-                  <div key={booking.id} className={styles.bookingCard}>
+                  <div 
+                    key={booking.id} 
+                    id={`booking-card-${booking.id}`}
+                    className={styles.bookingCard}
+                    data-booking-id={booking.id}
+                    data-class-type={booking.classData.type}
+                    data-booking-status="confirmed"
+                  >
                     <div className={styles.bookingDetails}>
-                      <h3 className={styles[booking.classData.type]}>
+                      <h3 
+                        id={`booking-class-name-${booking.id}`}
+                        className={styles[booking.classData.type]}
+                      >
                         {booking.classData.name}
                       </h3>
                       <p>
@@ -196,6 +212,7 @@ export default function MyBookings() {
                       </p>
                     </div>
                     <button
+                      id={`cancel-booking-${booking.id}`}
                       onClick={() => handleCancelBooking(booking)}
                       disabled={cancellingId === booking.id}
                       className={getButtonClasses(cancellingId === booking.id, 'cancel')}
@@ -209,13 +226,23 @@ export default function MyBookings() {
           )}
           
           {waitlist.length > 0 && (
-            <div className={styles.section}>
-              <h2 className={styles.sectionTitle}>Waitlist</h2>
+            <div id="waitlist-section" className={styles.section}>
+              <h2 id="waitlist-title" className={styles.sectionTitle}>Waitlist</h2>
               <div>
                 {waitlist.map(entry => (
-                  <div key={entry.id} className={`${styles.bookingCard} ${styles.waitlist}`}>
+                  <div 
+                    key={entry.id} 
+                    id={`waitlist-card-${entry.id}`}
+                    className={`${styles.bookingCard} ${styles.waitlist}`}
+                    data-waitlist-id={entry.id}
+                    data-class-type={entry.classData.type}
+                    data-booking-status="waitlisted"
+                  >
                     <div className={styles.bookingDetails}>
-                      <h3 className={styles[entry.classData.type]}>
+                      <h3 
+                        id={`waitlist-class-name-${entry.id}`}
+                        className={styles[entry.classData.type]}
+                      >
                         {entry.classData.name} (Waitlist)
                       </h3>
                       <p>
@@ -226,6 +253,7 @@ export default function MyBookings() {
                       </p>
                     </div>
                     <button
+                      id={`leave-waitlist-${entry.id}`}
                       onClick={() => handleLeaveWaitlist(entry)}
                       disabled={cancellingId === entry.id}
                       className={getButtonClasses(cancellingId === entry.id, 'leave')}

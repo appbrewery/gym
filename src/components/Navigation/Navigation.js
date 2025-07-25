@@ -24,22 +24,22 @@ export default function Navigation() {
     <nav id="main-navigation" className={styles.nav}>
       <div className={styles.container}>
         <div className={styles.leftSection}>
-          <Link href="/" className={styles.logo}>
+          <Link href="/" id="home-link" className={styles.logo}>
             Gym Booking
           </Link>
           
           {user && (
             <>
               {user.membershipType === 'admin' ? (
-                <Link href="/admin" className={styles.navLink}>
+                <Link href="/admin" id="admin-panel-link" className={styles.navLink}>
                   Admin Panel
                 </Link>
               ) : (
                 <>
-                  <Link href="/schedule" className={styles.navLink}>
+                  <Link href="/schedule" id="schedule-link" className={styles.navLink}>
                     Class Schedule
                   </Link>
-                  <Link href="/my-bookings" className={styles.navLink}>
+                  <Link href="/my-bookings" id="my-bookings-link" className={styles.navLink}>
                     My Bookings
                   </Link>
                 </>
@@ -50,8 +50,14 @@ export default function Navigation() {
         
         <div className={styles.rightSection}>
           {user ? (
-            <div className={styles.userSection}>
-              <span>Welcome, {user.name}</span>
+            <div 
+              id="user-info-section" 
+              className={styles.userSection}
+              data-user-name={user.name}
+              data-user-type={user.membershipType}
+              data-user-id={user.userId}
+            >
+              <span id="welcome-message">Welcome, {user.name}</span>
               <button 
                 id="logout-button"
                 onClick={handleLogout}

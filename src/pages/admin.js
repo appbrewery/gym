@@ -179,7 +179,13 @@ export default function Admin() {
   }
 
   return (
-    <div id="admin-page" className={styles.adminContainer}>
+    <div 
+      id="admin-page" 
+      className={styles.adminContainer}
+      data-network-enabled={networkSettings?.enabled || false}
+      data-time-offset={timeOffset}
+      data-loading={loading}
+    >
       <h1 className={styles.pageTitle}>Admin Panel</h1>
       
       {error && (
@@ -192,23 +198,23 @@ export default function Admin() {
       <div className={styles.section}>
         <h2 className={styles.sectionTitle}>System Statistics</h2>
         <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
+          <div id="users-stat" className={styles.statCard}>
             <h3>{stats?.users || 0}</h3>
             <p>Users</p>
           </div>
-          <div className={styles.statCard}>
+          <div id="classes-stat" className={styles.statCard}>
             <h3>{stats?.classes || 0}</h3>
             <p>Classes</p>
           </div>
-          <div className={styles.statCard}>
+          <div id="bookings-stat" className={styles.statCard}>
             <h3>{stats?.bookings || 0}</h3>
             <p>Bookings</p>
           </div>
-          <div className={styles.statCard}>
+          <div id="waitlist-stat" className={styles.statCard}>
             <h3>{stats?.waitlist || 0}</h3>
             <p>Waitlist</p>
           </div>
-          <div className={styles.statCard}>
+          <div id="full-classes-stat" className={styles.statCard}>
             <h3>{stats?.fullClasses || 0}</h3>
             <p>Full Classes</p>
           </div>
@@ -245,6 +251,7 @@ export default function Admin() {
                   <div>
                     <label>Min:</label>
                     <input
+                      id="min-delay-input"
                       type="number"
                       value={networkSettings.minDelay || 500}
                       onChange={(e) => handleNetworkSettingChange('minDelay', parseInt(e.target.value))}
@@ -257,6 +264,7 @@ export default function Admin() {
                   <div>
                     <label>Max:</label>
                     <input
+                      id="max-delay-input"
                       type="number"
                       value={networkSettings.maxDelay || 2000}
                       onChange={(e) => handleNetworkSettingChange('maxDelay', parseInt(e.target.value))}
@@ -303,6 +311,7 @@ export default function Admin() {
 
           <div className={styles.buttonGroup}>
             <button
+              id="advance-1-hour"
               onClick={() => handleAdvanceTime(1, 'hours')}
               disabled={adjustingTime}
               className={`${styles.button} ${styles.primary}`}
@@ -310,6 +319,7 @@ export default function Admin() {
               +1 Hour
             </button>
             <button
+              id="advance-6-hours"
               onClick={() => handleAdvanceTime(6, 'hours')}
               disabled={adjustingTime}
               className={`${styles.button} ${styles.primary}`}
@@ -317,6 +327,7 @@ export default function Admin() {
               +6 Hours
             </button>
             <button
+              id="advance-1-day"
               onClick={() => handleAdvanceTime(1, 'days')}
               disabled={adjustingTime}
               className={`${styles.button} ${styles.secondary}`}
@@ -324,6 +335,7 @@ export default function Admin() {
               +1 Day
             </button>
             <button
+              id="advance-3-days"
               onClick={() => handleAdvanceTime(3, 'days')}
               disabled={adjustingTime}
               className={`${styles.button} ${styles.secondary}`}

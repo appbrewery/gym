@@ -111,7 +111,13 @@ export default function Schedule() {
   }
 
   return (
-    <div id="schedule-page">
+    <div 
+      id="schedule-page"
+      data-selected-type={selectedType}
+      data-selected-day={selectedDay}
+      data-results-count={filteredClasses.length}
+      data-loading={loading}
+    >
       <h1 className={styles.scheduleTitle}>Class Schedule</h1>
       
       {error && (
@@ -149,11 +155,20 @@ export default function Schedule() {
 
       {/* Classes grouped by day */}
       {Object.keys(groupedClasses).length === 0 ? (
-        <p className={styles.noClasses}>No classes found matching your filters.</p>
+        <p id="no-classes-message" className={styles.noClasses}>No classes found matching your filters.</p>
       ) : (
         Object.entries(groupedClasses).map(([day, dayClasses]) => (
-          <div key={day} className={styles.dayGroup}>
-            <h2 className={styles.dayTitle}>{day}</h2>
+          <div 
+            key={day} 
+            id={`day-group-${day.replace(/\s+/g, '-').toLowerCase()}`}
+            className={styles.dayGroup}
+          >
+            <h2 
+              id={`day-title-${day.replace(/\s+/g, '-').toLowerCase()}`}
+              className={styles.dayTitle}
+            >
+              {day}
+            </h2>
             {dayClasses.map(classItem => (
               <ClassCard
                 key={classItem.id}

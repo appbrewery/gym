@@ -137,13 +137,23 @@ export default function ClassCard({ classData, onBookingChange }) {
       data-class-type={classData.type}
       data-class-status={classData.status}
       data-available-spots={availableSpots}
+      data-user-booked={isBooked}
+      data-user-waitlisted={isWaitlisted}
+      data-is-past-class={isPastClass}
+      data-is-fully-booked={isFullyBooked}
     >
       <div className={styles.cardHeader}>
         <div className={styles.cardContent}>
-          <h3 className={getClassNameClasses()}>
+          <h3 
+            id={`class-name-${classData.id}`}
+            className={getClassNameClasses()}
+          >
             {classData.name}
           </h3>
-          <p className={styles.classDetail}>
+          <p 
+            id={`class-time-${classData.id}`}
+            className={styles.classDetail}
+          >
             <strong>Time:</strong> {formatTime(classData.dateTime)}
           </p>
           <p className={styles.classDetail}>
@@ -152,14 +162,22 @@ export default function ClassCard({ classData, onBookingChange }) {
           <p className={styles.classDetail}>
             <strong>Duration:</strong> {classData.duration} minutes
           </p>
-          <p className={styles.classDetail}>
+          <p 
+            id={`class-availability-${classData.id}`}
+            className={styles.classDetail}
+          >
             <strong>Available:</strong> {availableSpots} / {classData.capacity} spots
           </p>
         </div>
         
         <div className={styles.cardActions}>
           {isPastClass ? (
-            <span className={styles.completedLabel}>Completed</span>
+            <span 
+              id={`completed-label-${classData.id}`}
+              className={styles.completedLabel}
+            >
+              Completed
+            </span>
           ) : isBooked ? (
             <button
               id={`book-button-${classData.id}`}
@@ -201,7 +219,10 @@ export default function ClassCard({ classData, onBookingChange }) {
       </div>
       
       {error && (
-        <div className={styles.errorMessage}>
+        <div 
+          id={`class-error-${classData.id}`}
+          className={styles.errorMessage}
+        >
           {error}
         </div>
       )}

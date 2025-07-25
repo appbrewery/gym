@@ -54,11 +54,16 @@ export default function Login() {
   };
 
   return (
-    <div id="login-page" className={styles.loginContainer}>
+    <div 
+      id="login-page" 
+      className={styles.loginContainer}
+      data-form-mode={isLogin ? 'login' : 'register'}
+      data-form-submitting={loading}
+    >
       <h1 className={styles.pageTitle}>{isLogin ? 'Login' : 'Register'}</h1>
       
       {isLogin && (
-        <div className={styles.testCredentials}>
+        <div id="test-credentials" className={styles.testCredentials}>
           <h3>Test Credentials</h3>
           <div className={styles.credentialGroup}>
             <strong>Student Account:</strong>
@@ -141,6 +146,7 @@ export default function Login() {
       
       <div className={styles.toggleContainer}>
         <button
+          id="toggle-login-register"
           onClick={() => {
             setIsLogin(!isLogin);
             setError('');

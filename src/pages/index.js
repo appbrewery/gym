@@ -60,24 +60,28 @@ export default function Home() {
   }, []);
 
   return (
-    <div id="home-page" className={styles.homeContainer}>
+    <div 
+      id="home-page" 
+      className={styles.homeContainer}
+      data-init-status={initStatus}
+    >
       <h1 className={styles.title}>Welcome to FitHub Gym</h1>
       <p className={styles.subtitle}>Book your favorite fitness classes online - Yoga, Spin, and HIIT!</p>
       
       <div className={styles.classesSection}>
         <h2 className={styles.sectionTitle}>Available Classes</h2>
         <div className={styles.classGrid}>
-          <div className={`${styles.classCard} ${styles.yoga}`}>
+          <div id="yoga-info-card" className={`${styles.classCard} ${styles.yoga}`}>
             <h3>Yoga</h3>
             <p>60 minutes • 20 spots</p>
             <p>Find your inner peace and flexibility</p>
           </div>
-          <div className={`${styles.classCard} ${styles.spin}`}>
+          <div id="spin-info-card" className={`${styles.classCard} ${styles.spin}`}>
             <h3>Spin</h3>
             <p>45 minutes • 10 spots</p>
             <p>High-energy cycling workout</p>
           </div>
-          <div className={`${styles.classCard} ${styles.hiit}`}>
+          <div id="hiit-info-card" className={`${styles.classCard} ${styles.hiit}`}>
             <h3>HIIT</h3>
             <p>30 minutes • 15 spots</p>
             <p>Maximum results in minimum time</p>
@@ -85,8 +89,8 @@ export default function Home() {
         </div>
       </div>
       
-      <div className={styles.statusSection}>
-        <p className={styles.statusText}>
+      <div id="database-status-section" className={styles.statusSection}>
+        <p id="database-status-text" className={styles.statusText}>
           Database Status: {initStatus}
         </p>
       </div>
