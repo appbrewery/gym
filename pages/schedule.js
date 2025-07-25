@@ -4,6 +4,7 @@ import { isAuthenticated, getCurrentUser } from '../lib/auth';
 import { getDB } from '../lib/db';
 import ClassCard from '../components/ClassCard';
 import { getDayLabel, isPast } from '../utils/dateHelpers';
+import { getSimulatedTime } from '../lib/timeSimulation';
 
 export default function Schedule() {
   const router = useRouter();
@@ -65,7 +66,7 @@ export default function Schedule() {
 
     // Filter by day
     if (selectedDay !== 'all') {
-      const today = new Date();
+      const today = getSimulatedTime(); // Use simulated time instead of real time
       today.setHours(0, 0, 0, 0);
       
       let targetDate = new Date(today);
