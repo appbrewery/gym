@@ -12,7 +12,7 @@ export default function Schedule() {
   const [loading, setLoading] = useState(true);
   const [selectedType, setSelectedType] = useState('all');
   const [selectedDay, setSelectedDay] = useState('all');
-  const [showPast, setShowPast] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     // Redirect to login if not authenticated
@@ -26,7 +26,7 @@ export default function Schedule() {
 
   useEffect(() => {
     filterClasses();
-  }, [classes, selectedType, selectedDay, showPast]);
+  }, [classes, selectedType, selectedDay]);
 
   const loadClasses = async () => {
     try {
@@ -38,8 +38,9 @@ export default function Schedule() {
       
       setClasses(allClasses);
       setLoading(false);
-    } catch (error) {
-      console.error('Failed to load classes:', error);
+    } catch (err) {
+      console.error('Failed to load classes:', err);
+      setError('Failed to load classes. Please refresh the page.');
       setLoading(false);
     }
   };
@@ -47,10 +48,8 @@ export default function Schedule() {
   const filterClasses = () => {
     let filtered = [...classes];
 
-    // Filter by past/future
-    if (!showPast) {
-      filtered = filtered.filter(c => !isPast(c.dateTime));
-    }
+    // Always filter out past classes
+    filtered = filtered.filter(c => !isPast(c.dateTime));
 
     // Filter by type
     if (selectedType !== 'all') {
@@ -106,6 +105,19 @@ export default function Schedule() {
     <div id="schedule-page">
       <h1>Class Schedule</h1>
       
+      {error && (
+        <div id="error-message" style={{ 
+          color: 'red', 
+          marginBottom: '1rem',
+          padding: '0.5rem',
+          border: '1px solid red',
+          borderRadius: '4px',
+          backgroundColor: '#fef2f2'
+        }}>
+          {error}
+        </div>
+      )}
+      
       {/* Filters */}
       <div style={{ 
         display: 'flex', 
@@ -136,15 +148,6 @@ export default function Schedule() {
           <option value="tomorrow">Tomorrow</option>
           <option value="week">Next 7 Days</option>
         </select>
-
-        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <input
-            type="checkbox"
-            checked={showPast}
-            onChange={(e) => setShowPast(e.target.checked)}
-          />
-          Show past classes
-        </label>
       </div>
 
       {/* Classes grouped by day */}
