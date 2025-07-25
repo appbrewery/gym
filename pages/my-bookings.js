@@ -27,6 +27,13 @@ export default function MyBookings() {
       return;
     }
 
+    // Redirect admin users to admin panel
+    const user = getCurrentUser();
+    if (user && user.membershipType === 'admin') {
+      router.push('/admin');
+      return;
+    }
+
     loadUserBookings();
   }, [router]);
 

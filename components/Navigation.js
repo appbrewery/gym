@@ -33,16 +33,19 @@ export default function Navigation() {
           
           {user && (
             <>
-              <Link href="/schedule" style={{ textDecoration: 'none' }}>
-                Class Schedule
-              </Link>
-              <Link href="/my-bookings" style={{ textDecoration: 'none' }}>
-                My Bookings
-              </Link>
-              {user.membershipType === 'admin' && (
+              {user.membershipType === 'admin' ? (
                 <Link href="/admin" style={{ textDecoration: 'none' }}>
-                  Admin
+                  Admin Panel
                 </Link>
+              ) : (
+                <>
+                  <Link href="/schedule" style={{ textDecoration: 'none' }}>
+                    Class Schedule
+                  </Link>
+                  <Link href="/my-bookings" style={{ textDecoration: 'none' }}>
+                    My Bookings
+                  </Link>
+                </>
               )}
             </>
           )}

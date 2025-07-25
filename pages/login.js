@@ -28,12 +28,16 @@ export default function Login() {
         }
       };
 
-      await withNetworkSimulation(operation, {
+      const result = await withNetworkSimulation(operation, {
         errorMessage: isLogin ? 'Login failed' : 'Registration failed'
       });
 
-      // Redirect to schedule page after successful auth
-      router.push('/schedule');
+      // Redirect based on user type
+      if (result && result.membershipType === 'admin') {
+        router.push('/admin');
+      } else {
+        router.push('/schedule');
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -60,8 +64,16 @@ export default function Login() {
           borderRadius: '8px' 
         }}>
           <h3 style={{ marginTop: 0 }}>Test Credentials</h3>
-          <p style={{ margin: '0.25rem 0' }}>Email: student@test.com</p>
-          <p style={{ margin: '0.25rem 0' }}>Password: password123</p>
+          <div style={{ marginBottom: '0.5rem' }}>
+            <strong>Student Account:</strong>
+            <p style={{ margin: '0.25rem 0' }}>Email: student@test.com</p>
+            <p style={{ margin: '0.25rem 0' }}>Password: password123</p>
+          </div>
+          <div>
+            <strong>Admin Account:</strong>
+            <p style={{ margin: '0.25rem 0' }}>Email: admin@test.com</p>
+            <p style={{ margin: '0.25rem 0' }}>Password: admin123</p>
+          </div>
         </div>
       )}
       

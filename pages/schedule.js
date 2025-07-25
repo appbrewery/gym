@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { isAuthenticated } from '../lib/auth';
+import { isAuthenticated, getCurrentUser } from '../lib/auth';
 import { getDB } from '../lib/db';
 import ClassCard from '../components/ClassCard';
 import { getDayLabel, isPast } from '../utils/dateHelpers';
@@ -18,6 +18,13 @@ export default function Schedule() {
     // Redirect to login if not authenticated
     if (!isAuthenticated()) {
       router.push('/login');
+      return;
+    }
+
+    // Redirect admin users to admin panel
+    const user = getCurrentUser();
+    if (user && user.membershipType === 'admin') {
+      router.push('/admin');
       return;
     }
 
