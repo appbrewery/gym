@@ -1,3 +1,5 @@
+import { getSimulatedTime } from '../lib/timeSimulation';
+
 export function formatDateTime(dateTimeString) {
   const date = new Date(dateTimeString);
   const options = {
@@ -31,19 +33,19 @@ export function formatDate(dateTimeString) {
 
 export function isToday(dateTimeString) {
   const date = new Date(dateTimeString);
-  const today = new Date();
+  const today = getSimulatedTime();
   return date.toDateString() === today.toDateString();
 }
 
 export function isTomorrow(dateTimeString) {
   const date = new Date(dateTimeString);
-  const tomorrow = new Date();
+  const tomorrow = getSimulatedTime();
   tomorrow.setDate(tomorrow.getDate() + 1);
   return date.toDateString() === tomorrow.toDateString();
 }
 
 export function isPast(dateTimeString) {
-  return new Date(dateTimeString) < new Date();
+  return new Date(dateTimeString) < getSimulatedTime();
 }
 
 export function getDayLabel(dateTimeString) {

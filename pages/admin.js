@@ -5,6 +5,7 @@ import { getDB } from '../lib/db';
 import { updateNetworkSettings } from '../lib/network';
 import { resetAllData, clearBookingsOnly } from '../lib/testData';
 import { withNetworkSimulation } from '../lib/network';
+import { getTimeOffset, advanceTime, resetTime, formatTimeOffset, initializeTimeSimulation } from '../lib/timeSimulation';
 
 export default function Admin() {
   const router = useRouter();
@@ -14,6 +15,8 @@ export default function Admin() {
   const [resetting, setResetting] = useState(false);
   const [stats, setStats] = useState(null);
   const [error, setError] = useState('');
+  const [timeOffset, setTimeOffset] = useState(0);
+  const [adjustingTime, setAdjustingTime] = useState(false);
 
   useEffect(() => {
     // Redirect to login if not authenticated or not admin
@@ -24,6 +27,7 @@ export default function Admin() {
     }
 
     loadAdminData();
+    initializeTimeSimulation();
   }, [router]);
 
   const loadAdminData = async () => {
@@ -52,6 +56,9 @@ export default function Admin() {
         waitlist: waitlist.length,
         fullClasses: classes.filter(c => c.status === 'full').length
       });
+
+      // Load time offset
+      setTimeOffset(getTimeOffset());
 
       setLoading(false);
     } catch (err) {
@@ -132,6 +139,37 @@ export default function Admin() {
       setError('Failed to clear bookings');
     } finally {
       setResetting(false);
+    }
+  };
+
+  const handleAdvanceTime = async (amount, unit) => {
+    setAdjustingTime(true);
+    setError('');
+    
+    try {
+      const newOffset = await advanceTime(amount, unit);
+      setTimeOffset(newOffset);
+      // Refresh stats as class statuses may have changed
+      await loadAdminData();
+    } catch (err) {
+      setError('Failed to advance time');
+    } finally {
+      setAdjustingTime(false);
+    }
+  };
+
+  const handleResetTime = async () => {
+    setAdjustingTime(true);
+    setError('');
+    
+    try {
+      await resetTime();
+      setTimeOffset(0);
+      await loadAdminData();
+    } catch (err) {
+      setError('Failed to reset time');
+    } finally {
+      setAdjustingTime(false);
     }
   };
 
@@ -264,6 +302,103 @@ export default function Admin() {
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Time Simulation */}
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>Time Simulation</h2>
+        <div style={{ 
+          padding: '1rem', 
+          border: '1px solid #ddd', 
+          borderRadius: '8px',
+          backgroundColor: '#f9f9f9'
+        }}>
+          <div style={{ marginBottom: '1rem' }}>
+            <strong>Current Time Status:</strong>
+            <p style={{ fontSize: '1.1rem', margin: '0.5rem 0', color: timeOffset === 0 ? '#10B981' : '#F59E0B' }}>
+              {formatTimeOffset(timeOffset)}
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+            <button
+              onClick={() => handleAdvanceTime(1, 'hours')}
+              disabled={adjustingTime}
+              style={{
+                padding: '0.5rem 1rem',
+                backgroundColor: adjustingTime ? '#ccc' : '#3B82F6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: adjustingTime ? 'not-allowed' : 'pointer'
+              }}
+            >
+              +1 Hour
+            </button>
+            <button
+              onClick={() => handleAdvanceTime(6, 'hours')}
+              disabled={adjustingTime}
+              style={{
+                padding: '0.5rem 1rem',
+                backgroundColor: adjustingTime ? '#ccc' : '#3B82F6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: adjustingTime ? 'not-allowed' : 'pointer'
+              }}
+            >
+              +6 Hours
+            </button>
+            <button
+              onClick={() => handleAdvanceTime(1, 'days')}
+              disabled={adjustingTime}
+              style={{
+                padding: '0.5rem 1rem',
+                backgroundColor: adjustingTime ? '#ccc' : '#8B5CF6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: adjustingTime ? 'not-allowed' : 'pointer'
+              }}
+            >
+              +1 Day
+            </button>
+            <button
+              onClick={() => handleAdvanceTime(3, 'days')}
+              disabled={adjustingTime}
+              style={{
+                padding: '0.5rem 1rem',
+                backgroundColor: adjustingTime ? '#ccc' : '#8B5CF6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: adjustingTime ? 'not-allowed' : 'pointer'
+              }}
+            >
+              +3 Days
+            </button>
+            <button
+              id="reset-time-button"
+              onClick={handleResetTime}
+              disabled={adjustingTime}
+              style={{
+                padding: '0.5rem 1rem',
+                backgroundColor: adjustingTime ? '#ccc' : '#EF4444',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: adjustingTime ? 'not-allowed' : 'pointer'
+              }}
+            >
+              Reset to Real Time
+            </button>
+          </div>
+
+          <p style={{ fontSize: '0.875rem', color: '#666' }}>
+            Time simulation affects class scheduling, "Today/Tomorrow" labels, and past class filtering.
+            Classes that become "past" due to time advancement will be hidden from the schedule.
+          </p>
         </div>
       </div>
 

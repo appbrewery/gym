@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getDB } from '../lib/db';
 import { initializeTestData } from '../lib/testData';
+import { initializeTimeSimulation } from '../lib/timeSimulation';
 
 export default function Home() {
   const [initStatus, setInitStatus] = useState('Initializing...');
@@ -19,6 +20,9 @@ export default function Home() {
       try {
         const db = await getDB();
         window.db = db;
+        
+        // Initialize time simulation
+        await initializeTimeSimulation();
         
         // Initialize test data
         const result = await initializeTestData();
