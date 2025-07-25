@@ -53,13 +53,13 @@ export default function MyBookings() {
         })
       );
       
-      // Sort by class date
-      bookingsWithClasses.sort((a, b) => 
+      // Separate past and future bookings first
+      const futureBookings = bookingsWithClasses.filter(b => !isPast(b.classData.dateTime));
+      
+      // Sort future bookings by class date (earliest first)
+      futureBookings.sort((a, b) => 
         new Date(a.classData.dateTime) - new Date(b.classData.dateTime)
       );
-      
-      // Separate past and future bookings
-      const futureBookings = bookingsWithClasses.filter(b => !isPast(b.classData.dateTime));
       
       // Get user's waitlist entries
       const userWaitlist = await db.getAllByIndex('waitlist', 'userId', user.userId);
@@ -70,8 +70,14 @@ export default function MyBookings() {
         })
       );
       
+      // Filter and sort waitlist entries by class date (earliest first)
+      const futureWaitlist = waitlistWithClasses.filter(w => !isPast(w.classData.dateTime));
+      futureWaitlist.sort((a, b) => 
+        new Date(a.classData.dateTime) - new Date(b.classData.dateTime)
+      );
+      
       setBookings(futureBookings);
-      setWaitlist(waitlistWithClasses.filter(w => !isPast(w.classData.dateTime)));
+      setWaitlist(futureWaitlist);
       setLoading(false);
     } catch (error) {
       console.error('Failed to load bookings:', error);
