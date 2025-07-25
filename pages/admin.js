@@ -37,7 +37,7 @@ export default function Admin() {
       // Load network settings
       const settings = await db.get('systemSettings', 'network_config');
       setNetworkSettings(settings || {
-        enabled: true,
+        enabled: false,  // Disabled by default
         minDelay: 500,
         maxDelay: 2000,
         failureRate: 0.1
