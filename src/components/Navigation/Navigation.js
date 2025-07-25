@@ -25,7 +25,7 @@ export default function Navigation() {
       <div className={styles.container}>
         <div className={styles.leftSection}>
           <Link href="/" id="home-link" className={styles.logo}>
-            Gym Booking
+            Snack & Lift
           </Link>
           
           {user && (

@@ -49,6 +49,7 @@
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-lg);
   text-align: center;
+  background-color: var(--bg-secondary);
 }
 
 .statCard h3 {
@@ -59,7 +60,7 @@
 
 .statCard p {
   margin: var(--spacing-xs) 0 0 0;
-  color: var(--color-gray);
+  color: var(--text-primary);
 }
 
 .controlPanel {
@@ -85,7 +86,7 @@
 
 .checkboxDescription {
   font-size: var(--font-size-sm);
-  color: var(--color-gray);
+  color: var(--text-primary);
   margin: var(--spacing-sm) 0 0 1.5rem;
 }
 
@@ -115,6 +116,8 @@
   padding: var(--spacing-xs);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .slider {
@@ -147,11 +150,12 @@
 
 .button {
   padding: var(--spacing-sm) var(--spacing-md);
-  color: white;
+  color: var(--text-dark);
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
   font-size: var(--font-size-base);
+  font-weight: 500;
   transition: opacity 0.2s ease;
 }
 
@@ -187,6 +191,6 @@
 
 .helpText {
   font-size: var(--font-size-sm);
-  color: var(--color-gray);
+  color: var(--text-primary);
   margin-top: var(--spacing-sm);
 }

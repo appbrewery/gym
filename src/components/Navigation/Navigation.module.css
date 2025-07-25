@@ -2,14 +2,19 @@
 .nav {
   padding: var(--spacing-md);
   border-bottom: 1px solid var(--border-color);
-  margin-bottom: var(--spacing-xl);
   background-color: var(--bg-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
 }
 
 .leftSection {

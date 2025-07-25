@@ -8,21 +8,21 @@
   --color-danger: #e74c3c;    /* Red */
   
   /* Class type colors */
-  --color-yoga: #8b5cf6;
-  --color-spin: #3b82f6;
+  --color-yoga: #FF69E0;
+  --color-spin: #6995FF;
   --color-hiit: #ef4444;
   
   /* UI Colors */
   --color-primary: #FFD369;   /* Changed to accent yellow */
-  --color-success: #10b981;
+  --color-success: #69FF88;
   --color-warning: #f59e0b;
   --color-error: #e74c3c;     /* Updated to theme danger color */
   --color-gray: #393E46;      /* Updated to theme secondary */
   
   /* Booking button colors */
   --color-book: #FFD369;      /* Yellow for available classes */
-  --color-booked: #10b981;    /* Green for booked classes */
-  --color-waitlist: #f59e0b;  /* Amber for waitlist */
+  --color-booked: #69FF88;    /* Green for booked classes */
+  --color-waitlist: #6995FF;  /* Amber for waitlist */
   --color-full: #393E46;      /* Dark grey for full classes */
   
   /* Background colors */

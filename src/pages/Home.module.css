@@ -3,31 +3,123 @@
   /* No additional styles needed */
 }
 
-.title {
+/* Hero Section */
+.heroSection {
+  height: 80vh;
+  background-image: linear-gradient(rgba(34, 40, 49, 0.7), rgba(34, 40, 49, 0.7)), 
+                    url('/main-edgar-chaparro-sHfo3WOgGTU-unsplash-min.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.heroTitle {
+  font-size: 4rem;
   color: var(--color-primary);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.subtitle {
-  color: var(--color-gray);
-  font-size: var(--font-size-lg);
+.heroTagline {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 300;
+}
+
+.heroSubtagline {
+  font-size: 1.3rem;
+  color: var(--color-primary);
   margin-bottom: var(--spacing-xl);
+  font-style: italic;
 }
 
+.heroButtons {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.heroButton {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: var(--color-primary);
+  color: var(--text-dark);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.heroButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 211, 105, 0.3);
+}
+
+.heroButtonSecondary {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.heroButtonSecondary:hover {
+  background-color: var(--color-primary);
+  color: var(--text-dark);
+}
+
+/* Section Container */
+.sectionContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Classes Section */
 .classesSection {
-  margin-top: var(--spacing-xl);
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--bg-primary);
 }
 
 .sectionTitle {
   color: var(--color-primary);
   margin-bottom: var(--spacing-md);
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.sectionSubtitle {
+  text-align: center;
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xl);
+  font-style: italic;
 }
 
 .classGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-md);
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
 }
 
 @media (max-width: 768px) {
@@ -37,11 +129,27 @@
 }
 
 .classCard {
-  padding: var(--spacing-md);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-lg);
-  text-align: center;
+  overflow: hidden;
   background-color: var(--bg-secondary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.classCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(255, 211, 105, 0.2);
+}
+
+.classImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.classContent {
+  padding: var(--spacing-md);
+  text-align: center;
 }
 
 .classCard h3 {
@@ -61,17 +169,151 @@
   color: var(--color-hiit);
 }
 
-.classCard p {
+.classDuration {
   margin: var(--spacing-xs) 0;
-  color: var(--color-gray);
+  color: var(--color-primary);
+  font-weight: 500;
 }
 
-.statusSection {
-  margin-top: var(--spacing-2xl);
+.classDescription {
+  margin: var(--spacing-sm) 0 0 0;
+  color: var(--text-primary);
+}
+
+/* About Section */
+.aboutSection {
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--bg-secondary);
+}
+
+.aboutContent {
+  width: 100%;
+}
+
+.aboutText {
+  font-size: var(--font-size-lg);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+}
+
+.perksList {
+  background-color: var(--bg-primary);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  margin: var(--spacing-xl) 0;
+}
+
+.perksList h3 {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.perksList ul {
+  list-style: none;
+  padding: 0;
+}
+
+.perksList li {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  padding-left: var(--spacing-lg);
+  position: relative;
+}
+
+.perksList li:before {
+  content: "🍕";
+  position: absolute;
+  left: 0;
+}
+
+.aboutCta {
   text-align: center;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  font-style: italic;
+  margin-top: var(--spacing-xl);
+}
+
+/* Testimonials Section */
+.testimonialsSection {
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--bg-primary);
+}
+
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .testimonialsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.testimonialCard {
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  border-left: 4px solid var(--color-primary);
+}
+
+.testimonialQuote {
+  font-size: var(--font-size-lg);
+  color: var(--text-primary);
+  font-style: italic;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+}
+
+.testimonialAuthor {
+  color: var(--color-primary);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Status Section */
+.statusSection {
+  text-align: center;
+  padding: var(--spacing-md) 0;
+  background-color: var(--bg-secondary);
 }
 
 .statusText {
   font-size: var(--font-size-sm);
-  color: var(--color-gray);
+  color: var(--text-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .heroSection {
+    height: 60vh;
+    min-height: 500px;
+  }
+  
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroTagline {
+    font-size: 1.3rem;
+  }
+  
+  .heroSubtagline {
+    font-size: 1rem;
+  }
+  
+  .heroButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .heroButton,
+  .heroButtonSecondary {
+    width: 100%;
+    max-width: 300px;
+  }
 }

@@ -25,6 +25,8 @@
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   font-size: var(--font-size-base);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .dayGroup {
@@ -37,7 +39,10 @@
 }
 
 .noClasses {
-  color: var(--color-gray);
+  color: var(--text-primary);
   text-align: center;
   padding: var(--spacing-xl);
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
 }
