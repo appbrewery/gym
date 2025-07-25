@@ -1,32 +1,44 @@
 /* CSS Custom Properties - Design System Variables */
 :root {
+  /* Theme colors */
+  --color-main: #222831;      /* Black */
+  --color-secondary: #393E46; /* Dark Grey */
+  --color-accent: #FFD369;    /* Yellow */
+  --color-minor: #EEEEEE;     /* Light Grey */
+  --color-danger: #e74c3c;    /* Red */
+  
   /* Class type colors */
   --color-yoga: #8b5cf6;
   --color-spin: #3b82f6;
   --color-hiit: #ef4444;
   
   /* UI Colors */
-  --color-primary: #3b82f6;
+  --color-primary: #FFD369;   /* Changed to accent yellow */
   --color-success: #10b981;
   --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-gray: #6b7280;
+  --color-error: #e74c3c;     /* Updated to theme danger color */
+  --color-gray: #393E46;      /* Updated to theme secondary */
   
   /* Booking button colors */
-  --color-book: #f97316;      /* Orange for available classes */
+  --color-book: #FFD369;      /* Yellow for available classes */
   --color-booked: #10b981;    /* Green for booked classes */
   --color-waitlist: #f59e0b;  /* Amber for waitlist */
-  --color-full: #6b7280;      /* Gray for full classes */
+  --color-full: #393E46;      /* Dark grey for full classes */
   
   /* Background colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f9f9f9;
+  --bg-primary: #222831;      /* Main dark background */
+  --bg-secondary: #393E46;    /* Secondary dark background */
   --bg-error: #fef2f2;
-  --bg-disabled: #cccccc;
+  --bg-disabled: #393E46;     /* Dark grey for disabled */
+  
+  /* Text colors */
+  --text-primary: #EEEEEE;    /* Light grey for main text */
+  --text-secondary: #FFD369;  /* Yellow for highlights */
+  --text-dark: #222831;       /* Dark text for light backgrounds */
   
   /* Border colors */
-  --border-color: #dddddd;
-  --border-error: #ef4444;
+  --border-color: #393E46;    /* Dark grey borders */
+  --border-error: #e74c3c;
   
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -45,7 +57,12 @@
   --font-size-base: 1rem;
   --font-size-lg: 1.1rem;
   
+  /* Font families */
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+  
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-yellow: 0 0 0 2px rgba(255, 211, 105, 0.2);
 }

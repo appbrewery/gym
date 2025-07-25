@@ -41,6 +41,7 @@
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-lg);
   text-align: center;
+  background-color: var(--bg-secondary);
 }
 
 .classCard h3 {

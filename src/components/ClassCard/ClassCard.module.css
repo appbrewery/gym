@@ -5,6 +5,7 @@
   padding: var(--spacing-md);
   margin-bottom: var(--spacing-md);
   transition: opacity 0.3s ease;
+  background-color: var(--bg-secondary);
 }
 
 .card.loading {
@@ -59,11 +60,12 @@
 
 .bookButton {
   padding: var(--spacing-sm) var(--spacing-md);
-  color: white;
+  color: var(--text-dark);
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
   font-size: var(--font-size-base);
+  font-weight: 500;
   transition: opacity 0.2s ease;
 }
 

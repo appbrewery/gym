@@ -3,6 +3,7 @@
   padding: var(--spacing-md);
   border-bottom: 1px solid var(--border-color);
   margin-bottom: var(--spacing-xl);
+  background-color: var(--bg-secondary);
 }
 
 .container {
@@ -19,7 +20,9 @@
 .logo {
   text-decoration: none;
   font-weight: bold;
-  color: inherit;
+  color: var(--text-secondary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
 }
 
 .navLink {
@@ -41,10 +44,11 @@
   padding: var(--spacing-sm) var(--spacing-md);
   cursor: pointer;
   background: var(--color-primary);
-  color: white;
+  color: var(--text-dark);
   border: none;
   border-radius: var(--border-radius);
   font-size: var(--font-size-base);
+  font-weight: 500;
 }
 
 .button:hover {
