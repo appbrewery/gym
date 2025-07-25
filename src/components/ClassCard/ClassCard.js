@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { formatTime, isPast } from '../utils/dateHelpers';
-import { getCurrentUser } from '../lib/auth';
-import { getDB } from '../lib/db';
-import { withNetworkSimulation } from '../lib/network';
-import { updateClassBookingCount } from '../lib/classUtils';
+import { formatTime, isPast } from '../../utils/dateHelpers';
+import { getCurrentUser } from '../../lib/auth';
+import { getDB } from '../../lib/db';
+import { withNetworkSimulation } from '../../lib/network';
+import { updateClassBookingCount } from '../../lib/classUtils';
 
 const CLASS_COLORS = {
   yoga: '#8B5CF6',

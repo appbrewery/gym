@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getCurrentUser, logout } from '../lib/auth';
+import { getCurrentUser, logout } from '../../lib/auth';
 
 export default function Navigation() {
   const router = useRouter();

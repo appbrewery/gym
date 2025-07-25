@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { isAuthenticated, getCurrentUser } from '../lib/auth';
 import { getDB } from '../lib/db';
-import ClassCard from '../components/ClassCard';
+import ClassCard from '../components/ClassCard/ClassCard';
 import { getDayLabel, isPast } from '../utils/dateHelpers';
 import { getSimulatedTime } from '../lib/timeSimulation';
 
