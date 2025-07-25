@@ -4,6 +4,7 @@ import { isAuthenticated, getCurrentUser } from '../lib/auth';
 import { getDB } from '../lib/db';
 import { withNetworkSimulation } from '../lib/network';
 import { formatDateTime, isPast } from '../utils/dateHelpers';
+import { updateClassBookingCount } from '../lib/classUtils';
 
 const CLASS_COLORS = {
   yoga: '#8B5CF6',
@@ -82,14 +83,6 @@ export default function MyBookings() {
         // Remove booking
         await db.delete('bookings', booking.id);
         
-        // Update class booking count
-        const updatedClass = {
-          ...booking.classData,
-          currentBookings: booking.classData.currentBookings - 1,
-          status: 'available'
-        };
-        await db.update('classes', updatedClass);
-        
         // Check if anyone is on waitlist
         const waitlistEntries = await db.getAllByIndex('waitlist', 'classId', booking.classId);
         if (waitlistEntries.length > 0) {
@@ -109,14 +102,10 @@ export default function MyBookings() {
           
           await db.add('bookings', newBooking);
           await db.delete('waitlist', firstInLine.id);
-          
-          // Update class count again
-          updatedClass.currentBookings += 1;
-          if (updatedClass.currentBookings >= updatedClass.capacity) {
-            updatedClass.status = 'full';
-          }
-          await db.update('classes', updatedClass);
         }
+        
+        // Update class booking count based on actual bookings
+        await updateClassBookingCount(booking.classId);
         
         // Reload bookings
         await loadUserBookings();

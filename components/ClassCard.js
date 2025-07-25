@@ -3,6 +3,7 @@ import { formatTime, isPast } from '../utils/dateHelpers';
 import { getCurrentUser } from '../lib/auth';
 import { getDB } from '../lib/db';
 import { withNetworkSimulation } from '../lib/network';
+import { updateClassBookingCount } from '../lib/classUtils';
 
 const CLASS_COLORS = {
   yoga: '#8B5CF6',
@@ -89,13 +90,8 @@ export default function ClassCard({ classData, onBookingChange }) {
 
           await db.add('bookings', booking);
           
-          // Update class booking count
-          const updatedClass = {
-            ...classData,
-            currentBookings: classData.currentBookings + 1,
-            status: classData.currentBookings + 1 >= classData.capacity ? 'full' : 'available'
-          };
-          await db.update('classes', updatedClass);
+          // Update class booking count based on actual bookings
+          await updateClassBookingCount(classData.id);
           
           setIsBooked(true);
         }
