@@ -1,0 +1,76 @@
+/* Home page styles */
+.homeContainer {
+  /* No additional styles needed */
+}
+
+.title {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.subtitle {
+  color: var(--color-gray);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.classesSection {
+  margin-top: var(--spacing-xl);
+}
+
+.sectionTitle {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.classGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+  .classGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.classCard {
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+}
+
+.classCard h3 {
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+}
+
+.classCard.yoga h3 {
+  color: var(--color-yoga);
+}
+
+.classCard.spin h3 {
+  color: var(--color-spin);
+}
+
+.classCard.hiit h3 {
+  color: var(--color-hiit);
+}
+
+.classCard p {
+  margin: var(--spacing-xs) 0;
+  color: var(--color-gray);
+}
+
+.statusSection {
+  margin-top: var(--spacing-2xl);
+  text-align: center;
+}
+
+.statusText {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray);
+}

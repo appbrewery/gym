@@ -5,6 +5,7 @@ import { getDB } from '../lib/db';
 import ClassCard from '../components/ClassCard/ClassCard';
 import { getDayLabel, isPast } from '../utils/dateHelpers';
 import { getSimulatedTime } from '../lib/timeSimulation';
+import styles from './Schedule.module.css';
 
 export default function Schedule() {
   const router = useRouter();
@@ -111,33 +112,21 @@ export default function Schedule() {
 
   return (
     <div id="schedule-page">
-      <h1>Class Schedule</h1>
+      <h1 className={styles.scheduleTitle}>Class Schedule</h1>
       
       {error && (
-        <div id="error-message" style={{ 
-          color: 'red', 
-          marginBottom: '1rem',
-          padding: '0.5rem',
-          border: '1px solid red',
-          borderRadius: '4px',
-          backgroundColor: '#fef2f2'
-        }}>
+        <div id="error-message" className={styles.errorMessage}>
           {error}
         </div>
       )}
       
       {/* Filters */}
-      <div style={{ 
-        display: 'flex', 
-        gap: '1rem', 
-        marginBottom: '2rem',
-        flexWrap: 'wrap'
-      }}>
+      <div className={styles.filters}>
         <select
           id="type-filter"
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
-          style={{ padding: '0.5rem' }}
+          className={styles.filterSelect}
         >
           <option value="all">All Classes</option>
           <option value="yoga">Yoga</option>
@@ -149,7 +138,7 @@ export default function Schedule() {
           id="day-filter"
           value={selectedDay}
           onChange={(e) => setSelectedDay(e.target.value)}
-          style={{ padding: '0.5rem' }}
+          className={styles.filterSelect}
         >
           <option value="all">All Days</option>
           <option value="today">Today</option>
@@ -160,11 +149,11 @@ export default function Schedule() {
 
       {/* Classes grouped by day */}
       {Object.keys(groupedClasses).length === 0 ? (
-        <p>No classes found matching your filters.</p>
+        <p className={styles.noClasses}>No classes found matching your filters.</p>
       ) : (
         Object.entries(groupedClasses).map(([day, dayClasses]) => (
-          <div key={day} style={{ marginBottom: '2rem' }}>
-            <h2 style={{ marginBottom: '1rem' }}>{day}</h2>
+          <div key={day} className={styles.dayGroup}>
+            <h2 className={styles.dayTitle}>{day}</h2>
             {dayClasses.map(classItem => (
               <ClassCard
                 key={classItem.id}

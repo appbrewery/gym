@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getCurrentUser, logout } from '../../lib/auth';
+import styles from './Navigation.module.css';
 
 export default function Navigation() {
   const router = useRouter();
@@ -20,29 +21,25 @@ export default function Navigation() {
   };
 
   return (
-    <nav id="main-navigation" style={{ 
-      padding: '1rem', 
-      borderBottom: '1px solid #ddd',
-      marginBottom: '2rem'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', gap: '2rem' }}>
-          <Link href="/" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+    <nav id="main-navigation" className={styles.nav}>
+      <div className={styles.container}>
+        <div className={styles.leftSection}>
+          <Link href="/" className={styles.logo}>
             Gym Booking
           </Link>
           
           {user && (
             <>
               {user.membershipType === 'admin' ? (
-                <Link href="/admin" style={{ textDecoration: 'none' }}>
+                <Link href="/admin" className={styles.navLink}>
                   Admin Panel
                 </Link>
               ) : (
                 <>
-                  <Link href="/schedule" style={{ textDecoration: 'none' }}>
+                  <Link href="/schedule" className={styles.navLink}>
                     Class Schedule
                   </Link>
-                  <Link href="/my-bookings" style={{ textDecoration: 'none' }}>
+                  <Link href="/my-bookings" className={styles.navLink}>
                     My Bookings
                   </Link>
                 </>
@@ -51,17 +48,14 @@ export default function Navigation() {
           )}
         </div>
         
-        <div>
+        <div className={styles.rightSection}>
           {user ? (
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div className={styles.userSection}>
               <span>Welcome, {user.name}</span>
               <button 
                 id="logout-button"
                 onClick={handleLogout}
-                style={{ 
-                  padding: '0.5rem 1rem',
-                  cursor: 'pointer'
-                }}
+                className={styles.button}
               >
                 Logout
               </button>
@@ -70,10 +64,7 @@ export default function Navigation() {
             <Link href="/login">
               <button 
                 id="login-button"
-                style={{ 
-                  padding: '0.5rem 1rem',
-                  cursor: 'pointer'
-                }}
+                className={styles.button}
               >
                 Login
               </button>

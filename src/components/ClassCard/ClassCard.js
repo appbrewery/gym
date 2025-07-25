@@ -4,12 +4,8 @@ import { getCurrentUser } from '../../lib/auth';
 import { getDB } from '../../lib/db';
 import { withNetworkSimulation } from '../../lib/network';
 import { updateClassBookingCount } from '../../lib/classUtils';
+import styles from './ClassCard.module.css';
 
-const CLASS_COLORS = {
-  yoga: '#8B5CF6',
-  spin: '#3B82F6',
-  hiit: '#EF4444'
-};
 
 export default function ClassCard({ classData, onBookingChange }) {
   const [loading, setLoading] = useState(false);
@@ -106,56 +102,69 @@ export default function ClassCard({ classData, onBookingChange }) {
     }
   };
 
+  const getCardClasses = () => {
+    let classes = [styles.card];
+    if (loading) classes.push(styles.loading);
+    if (isPastClass) classes.push(styles.past);
+    return classes.join(' ');
+  };
+
+  const getClassNameClasses = () => {
+    return `${styles.className} ${styles[classData.type]}`;
+  };
+
+  const getButtonClasses = () => {
+    let classes = [styles.bookButton];
+    if (loading) {
+      classes.push(styles.loading);
+    } else if (isBooked) {
+      classes.push(styles.booked);
+    } else if (isWaitlisted) {
+      classes.push(styles.waitlisted);
+    } else if (isFullyBooked) {
+      classes.push(styles.waitlist);
+    } else {
+      classes.push(styles.available);
+    }
+    return classes.join(' ');
+  };
+
   return (
     <div
       id={`class-card-${classData.id}`}
-      className={`class-card ${loading ? 'loading' : ''}`}
+      className={getCardClasses()}
       data-class-id={classData.id}
       data-class-type={classData.type}
       data-class-status={classData.status}
       data-available-spots={availableSpots}
-      style={{
-        border: '1px solid #ddd',
-        borderRadius: '8px',
-        padding: '1rem',
-        marginBottom: '1rem',
-        opacity: isPastClass ? 0.6 : 1
-      }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-        <div>
-          <h3 style={{ color: CLASS_COLORS[classData.type], margin: '0 0 0.5rem 0' }}>
+      <div className={styles.cardHeader}>
+        <div className={styles.cardContent}>
+          <h3 className={getClassNameClasses()}>
             {classData.name}
           </h3>
-          <p style={{ margin: '0.25rem 0' }}>
+          <p className={styles.classDetail}>
             <strong>Time:</strong> {formatTime(classData.dateTime)}
           </p>
-          <p style={{ margin: '0.25rem 0' }}>
+          <p className={styles.classDetail}>
             <strong>Instructor:</strong> {classData.instructor}
           </p>
-          <p style={{ margin: '0.25rem 0' }}>
+          <p className={styles.classDetail}>
             <strong>Duration:</strong> {classData.duration} minutes
           </p>
-          <p style={{ margin: '0.25rem 0' }}>
+          <p className={styles.classDetail}>
             <strong>Available:</strong> {availableSpots} / {classData.capacity} spots
           </p>
         </div>
         
-        <div>
+        <div className={styles.cardActions}>
           {isPastClass ? (
-            <span style={{ color: '#666' }}>Completed</span>
+            <span className={styles.completedLabel}>Completed</span>
           ) : isBooked ? (
             <button
               id={`book-button-${classData.id}`}
               disabled
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#10B981',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'not-allowed'
-              }}
+              className={getButtonClasses()}
             >
               Booked
             </button>
@@ -163,14 +172,7 @@ export default function ClassCard({ classData, onBookingChange }) {
             <button
               id={`book-button-${classData.id}`}
               disabled
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#6B7280',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'not-allowed'
-              }}
+              className={getButtonClasses()}
             >
               Waitlisted
             </button>
@@ -180,14 +182,7 @@ export default function ClassCard({ classData, onBookingChange }) {
               onClick={handleBooking}
               disabled={loading}
               aria-busy={loading}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: loading ? '#ccc' : '#F59E0B',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: loading ? 'not-allowed' : 'pointer'
-              }}
+              className={getButtonClasses()}
             >
               {loading ? 'Joining...' : 'Join Waitlist'}
             </button>
@@ -197,14 +192,7 @@ export default function ClassCard({ classData, onBookingChange }) {
               onClick={handleBooking}
               disabled={loading}
               aria-busy={loading}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: loading ? '#ccc' : '#F97316',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: loading ? 'not-allowed' : 'pointer'
-              }}
+              className={getButtonClasses()}
             >
               {loading ? 'Booking...' : 'Book Class'}
             </button>
@@ -213,11 +201,7 @@ export default function ClassCard({ classData, onBookingChange }) {
       </div>
       
       {error && (
-        <div style={{ 
-          marginTop: '0.5rem', 
-          color: 'red',
-          fontSize: '0.875rem'
-        }}>
+        <div className={styles.errorMessage}>
           {error}
         </div>
       )}

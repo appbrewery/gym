@@ -1,0 +1,104 @@
+/* My Bookings page styles */
+.bookingsContainer {
+  /* No additional styles needed */
+}
+
+.pageTitle {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xl);
+}
+
+.errorMessage {
+  color: var(--color-error);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-error);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-error);
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--color-gray);
+  padding: var(--spacing-xl);
+}
+
+.emptyState a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.sectionTitle {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.bookingCard {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookingCard.waitlist {
+  background-color: var(--bg-secondary);
+}
+
+.bookingDetails h3 {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-lg);
+}
+
+.bookingDetails h3.yoga {
+  color: var(--color-yoga);
+}
+
+.bookingDetails h3.spin {
+  color: var(--color-spin);
+}
+
+.bookingDetails h3.hiit {
+  color: var(--color-hiit);
+}
+
+.bookingDetails p {
+  margin: var(--spacing-xs) 0;
+  color: var(--color-gray);
+}
+
+.cancelButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: opacity 0.2s ease;
+}
+
+.cancelButton:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.cancelButton:disabled {
+  cursor: not-allowed;
+}
+
+.cancelButton.cancel {
+  background-color: var(--color-error);
+}
+
+.cancelButton.leave {
+  background-color: var(--color-gray);
+}
+
+.cancelButton.loading {
+  background-color: var(--bg-disabled);
+}

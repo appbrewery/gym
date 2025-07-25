@@ -6,6 +6,7 @@ import { updateNetworkSettings } from '../lib/network';
 import { resetAllData, clearBookingsOnly } from '../lib/testData';
 import { withNetworkSimulation } from '../lib/network';
 import { getTimeOffset, advanceTime, resetTime, formatTimeOffset, initializeTimeSimulation } from '../lib/timeSimulation';
+import styles from './Admin.module.css';
 
 export default function Admin() {
   const router = useRouter();
@@ -178,47 +179,36 @@ export default function Admin() {
   }
 
   return (
-    <div id="admin-page">
-      <h1>Admin Panel</h1>
+    <div id="admin-page" className={styles.adminContainer}>
+      <h1 className={styles.pageTitle}>Admin Panel</h1>
       
       {error && (
-        <div id="error-message" style={{ 
-          color: 'red', 
-          marginBottom: '1rem',
-          padding: '0.5rem',
-          border: '1px solid red',
-          borderRadius: '4px',
-          backgroundColor: '#fef2f2'
-        }}>
+        <div id="error-message" className={styles.errorMessage}>
           {error}
         </div>
       )}
 
       {/* System Statistics */}
-      <div style={{ marginBottom: '2rem' }}>
-        <h2>System Statistics</h2>
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(5, 1fr)', 
-          gap: '1rem' 
-        }}>
-          <div style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', textAlign: 'center' }}>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>System Statistics</h2>
+        <div className={styles.statsGrid}>
+          <div className={styles.statCard}>
             <h3>{stats?.users || 0}</h3>
             <p>Users</p>
           </div>
-          <div style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', textAlign: 'center' }}>
+          <div className={styles.statCard}>
             <h3>{stats?.classes || 0}</h3>
             <p>Classes</p>
           </div>
-          <div style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', textAlign: 'center' }}>
+          <div className={styles.statCard}>
             <h3>{stats?.bookings || 0}</h3>
             <p>Bookings</p>
           </div>
-          <div style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', textAlign: 'center' }}>
+          <div className={styles.statCard}>
             <h3>{stats?.waitlist || 0}</h3>
             <p>Waitlist</p>
           </div>
-          <div style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', textAlign: 'center' }}>
+          <div className={styles.statCard}>
             <h3>{stats?.fullClasses || 0}</h3>
             <p>Full Classes</p>
           </div>
@@ -226,16 +216,11 @@ export default function Admin() {
       </div>
 
       {/* Network Simulation Controls */}
-      <div style={{ marginBottom: '2rem' }}>
-        <h2>Network Simulation</h2>
-        <div style={{ 
-          padding: '1rem', 
-          border: '1px solid #ddd', 
-          borderRadius: '8px',
-          backgroundColor: '#f9f9f9'
-        }}>
-          <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Network Simulation</h2>
+        <div className={styles.controlPanel}>
+          <div className={styles.controlGroup}>
+            <label className={styles.checkbox}>
               <input
                 id="network-enabled-toggle"
                 type="checkbox"
@@ -245,18 +230,18 @@ export default function Admin() {
               />
               <strong>Enable Network Simulation</strong>
             </label>
-            <p style={{ fontSize: '0.875rem', color: '#666', margin: '0.5rem 0 0 1.5rem' }}>
+            <p className={styles.checkboxDescription}>
               {networkSettings?.enabled ? 'Network delays and failures are active' : 'All operations will be instant'}
             </p>
           </div>
 
           {networkSettings?.enabled && (
-            <div style={{ marginLeft: '1.5rem' }}>
-              <div style={{ marginBottom: '1rem' }}>
-                <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+            <div className={styles.nestedControls}>
+              <div className={styles.formGroup}>
+                <label className={styles.label}>
                   <strong>Delay Range (ms)</strong>
                 </label>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div className={styles.inputGroup}>
                   <div>
                     <label>Min:</label>
                     <input
@@ -265,7 +250,7 @@ export default function Admin() {
                       onChange={(e) => handleNetworkSettingChange('minDelay', parseInt(e.target.value))}
                       min="0"
                       max="5000"
-                      style={{ width: '80px', marginLeft: '0.5rem' }}
+                      className={styles.numberInput}
                       disabled={updating}
                     />
                   </div>
@@ -277,7 +262,7 @@ export default function Admin() {
                       onChange={(e) => handleNetworkSettingChange('maxDelay', parseInt(e.target.value))}
                       min="0"
                       max="10000"
-                      style={{ width: '80px', marginLeft: '0.5rem' }}
+                      className={styles.numberInput}
                       disabled={updating}
                     />
                   </div>
@@ -285,7 +270,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+                <label className={styles.label}>
                   <strong>Failure Rate: {Math.round((networkSettings.failureRate || 0) * 100)}%</strong>
                 </label>
                 <input
@@ -296,7 +281,7 @@ export default function Admin() {
                   step="0.05"
                   value={networkSettings.failureRate || 0.1}
                   onChange={(e) => handleNetworkSettingChange('failureRate', parseFloat(e.target.value))}
-                  style={{ width: '200px' }}
+                  className={styles.slider}
                   disabled={updating}
                 />
               </div>
@@ -306,75 +291,42 @@ export default function Admin() {
       </div>
 
       {/* Time Simulation */}
-      <div style={{ marginBottom: '2rem' }}>
-        <h2>Time Simulation</h2>
-        <div style={{ 
-          padding: '1rem', 
-          border: '1px solid #ddd', 
-          borderRadius: '8px',
-          backgroundColor: '#f9f9f9'
-        }}>
-          <div style={{ marginBottom: '1rem' }}>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Time Simulation</h2>
+        <div className={styles.controlPanel}>
+          <div className={styles.timeStatus}>
             <strong>Current Time Status:</strong>
-            <p style={{ fontSize: '1.1rem', margin: '0.5rem 0', color: timeOffset === 0 ? '#10B981' : '#F59E0B' }}>
+            <p className={`${styles.timeStatusValue} ${timeOffset === 0 ? styles.realTime : styles.simulated}`}>
               {formatTimeOffset(timeOffset)}
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+          <div className={styles.buttonGroup}>
             <button
               onClick={() => handleAdvanceTime(1, 'hours')}
               disabled={adjustingTime}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: adjustingTime ? '#ccc' : '#3B82F6',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: adjustingTime ? 'not-allowed' : 'pointer'
-              }}
+              className={`${styles.button} ${styles.primary}`}
             >
               +1 Hour
             </button>
             <button
               onClick={() => handleAdvanceTime(6, 'hours')}
               disabled={adjustingTime}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: adjustingTime ? '#ccc' : '#3B82F6',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: adjustingTime ? 'not-allowed' : 'pointer'
-              }}
+              className={`${styles.button} ${styles.primary}`}
             >
               +6 Hours
             </button>
             <button
               onClick={() => handleAdvanceTime(1, 'days')}
               disabled={adjustingTime}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: adjustingTime ? '#ccc' : '#8B5CF6',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: adjustingTime ? 'not-allowed' : 'pointer'
-              }}
+              className={`${styles.button} ${styles.secondary}`}
             >
               +1 Day
             </button>
             <button
               onClick={() => handleAdvanceTime(3, 'days')}
               disabled={adjustingTime}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: adjustingTime ? '#ccc' : '#8B5CF6',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: adjustingTime ? 'not-allowed' : 'pointer'
-              }}
+              className={`${styles.button} ${styles.secondary}`}
             >
               +3 Days
             </button>
@@ -382,20 +334,13 @@ export default function Admin() {
               id="reset-time-button"
               onClick={handleResetTime}
               disabled={adjustingTime}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: adjustingTime ? '#ccc' : '#EF4444',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: adjustingTime ? 'not-allowed' : 'pointer'
-              }}
+              className={`${styles.button} ${styles.danger}`}
             >
               Reset to Real Time
             </button>
           </div>
 
-          <p style={{ fontSize: '0.875rem', color: '#666' }}>
+          <p className={styles.helpText}>
             Time simulation affects class scheduling, "Today/Tomorrow" labels, and past class filtering.
             Classes that become "past" due to time advancement will be hidden from the schedule.
           </p>
@@ -403,22 +348,14 @@ export default function Admin() {
       </div>
 
       {/* Data Management */}
-      <div style={{ marginBottom: '2rem' }}>
-        <h2>Data Management</h2>
-        <div style={{ display: 'flex', gap: '1rem' }}>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Data Management</h2>
+        <div className={styles.buttonGroup}>
           <button
             id="reset-all-data-button"
             onClick={handleResetAllData}
             disabled={resetting}
-            style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: resetting ? '#ccc' : '#EF4444',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: resetting ? 'not-allowed' : 'pointer',
-              fontSize: '1rem'
-            }}
+            className={`${styles.button} ${styles.danger} ${styles.large}`}
           >
             {resetting ? 'Resetting...' : 'Reset All Data'}
           </button>
@@ -427,20 +364,12 @@ export default function Admin() {
             id="clear-bookings-button"
             onClick={handleClearBookings}
             disabled={resetting}
-            style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: resetting ? '#ccc' : '#F59E0B',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: resetting ? 'not-allowed' : 'pointer',
-              fontSize: '1rem'
-            }}
+            className={`${styles.button} ${styles.warning} ${styles.large}`}
           >
             {resetting ? 'Clearing...' : 'Clear Bookings Only'}
           </button>
         </div>
-        <p style={{ fontSize: '0.875rem', color: '#666', marginTop: '0.5rem' }}>
+        <p className={styles.helpText}>
           Use these controls to reset test data during development and testing.
         </p>
       </div>

@@ -5,12 +5,8 @@ import { getDB } from '../lib/db';
 import { withNetworkSimulation } from '../lib/network';
 import { formatDateTime, isPast } from '../utils/dateHelpers';
 import { updateClassBookingCount } from '../lib/classUtils';
+import styles from './MyBookings.module.css';
 
-const CLASS_COLORS = {
-  yoga: '#8B5CF6',
-  spin: '#3B82F6',
-  hiit: '#EF4444'
-};
 
 export default function MyBookings() {
   const router = useRouter();
@@ -153,125 +149,93 @@ export default function MyBookings() {
     return <div>Loading your bookings...</div>;
   }
 
+  const getButtonClasses = (isLoading, type) => {
+    let classes = [styles.cancelButton];
+    if (isLoading) {
+      classes.push(styles.loading);
+    } else {
+      classes.push(styles[type]);
+    }
+    return classes.join(' ');
+  };
+
   return (
-    <div id="my-bookings-page">
-      <h1>My Bookings</h1>
+    <div id="my-bookings-page" className={styles.bookingsContainer}>
+      <h1 className={styles.pageTitle}>My Bookings</h1>
       
       {error && (
-        <div id="error-message" style={{ 
-          color: 'red', 
-          marginBottom: '1rem',
-          padding: '0.5rem',
-          border: '1px solid red',
-          borderRadius: '4px',
-          backgroundColor: '#fef2f2'
-        }}>
+        <div id="error-message" className={styles.errorMessage}>
           {error}
         </div>
       )}
       
       {bookings.length === 0 && waitlist.length === 0 ? (
-        <p>You haven't booked any classes yet. <a href="/schedule">Browse available classes</a></p>
+        <div className={styles.emptyState}>
+          <p>You haven't booked any classes yet. <a href="/schedule">Browse available classes</a></p>
+        </div>
       ) : (
         <>
           {bookings.length > 0 && (
-            <>
-              <h2>Confirmed Bookings</h2>
-              <div style={{ marginBottom: '2rem' }}>
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>Confirmed Bookings</h2>
+              <div>
                 {bookings.map(booking => (
-                  <div
-                    key={booking.id}
-                    style={{
-                      border: '1px solid #ddd',
-                      borderRadius: '8px',
-                      padding: '1rem',
-                      marginBottom: '1rem',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <div>
-                      <h3 style={{ color: CLASS_COLORS[booking.classData.type], margin: '0 0 0.5rem 0' }}>
+                  <div key={booking.id} className={styles.bookingCard}>
+                    <div className={styles.bookingDetails}>
+                      <h3 className={styles[booking.classData.type]}>
                         {booking.classData.name}
                       </h3>
-                      <p style={{ margin: '0.25rem 0' }}>
+                      <p>
                         <strong>When:</strong> {formatDateTime(booking.classData.dateTime)}
                       </p>
-                      <p style={{ margin: '0.25rem 0' }}>
+                      <p>
                         <strong>Instructor:</strong> {booking.classData.instructor}
                       </p>
-                      <p style={{ margin: '0.25rem 0' }}>
+                      <p>
                         <strong>Duration:</strong> {booking.classData.duration} minutes
                       </p>
                     </div>
                     <button
                       onClick={() => handleCancelBooking(booking)}
                       disabled={cancellingId === booking.id}
-                      style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: cancellingId === booking.id ? '#ccc' : '#EF4444',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: cancellingId === booking.id ? 'not-allowed' : 'pointer'
-                      }}
+                      className={getButtonClasses(cancellingId === booking.id, 'cancel')}
                     >
                       {cancellingId === booking.id ? 'Cancelling...' : 'Cancel Booking'}
                     </button>
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           )}
           
           {waitlist.length > 0 && (
-            <>
-              <h2>Waitlist</h2>
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>Waitlist</h2>
               <div>
                 {waitlist.map(entry => (
-                  <div
-                    key={entry.id}
-                    style={{
-                      border: '1px solid #ddd',
-                      borderRadius: '8px',
-                      padding: '1rem',
-                      marginBottom: '1rem',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      backgroundColor: '#f9f9f9'
-                    }}
-                  >
-                    <div>
-                      <h3 style={{ color: CLASS_COLORS[entry.classData.type], margin: '0 0 0.5rem 0' }}>
+                  <div key={entry.id} className={`${styles.bookingCard} ${styles.waitlist}`}>
+                    <div className={styles.bookingDetails}>
+                      <h3 className={styles[entry.classData.type]}>
                         {entry.classData.name} (Waitlist)
                       </h3>
-                      <p style={{ margin: '0.25rem 0' }}>
+                      <p>
                         <strong>When:</strong> {formatDateTime(entry.classData.dateTime)}
                       </p>
-                      <p style={{ margin: '0.25rem 0' }}>
+                      <p>
                         <strong>Instructor:</strong> {entry.classData.instructor}
                       </p>
                     </div>
                     <button
                       onClick={() => handleLeaveWaitlist(entry)}
                       disabled={cancellingId === entry.id}
-                      style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: cancellingId === entry.id ? '#ccc' : '#6B7280',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: cancellingId === entry.id ? 'not-allowed' : 'pointer'
-                      }}
+                      className={getButtonClasses(cancellingId === entry.id, 'leave')}
                     >
                       {cancellingId === entry.id ? 'Leaving...' : 'Leave Waitlist'}
                     </button>
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           )}
         </>
       )}

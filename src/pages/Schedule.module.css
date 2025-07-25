@@ -1,0 +1,43 @@
+/* Schedule page styles */
+.scheduleTitle {
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-primary);
+}
+
+.errorMessage {
+  color: var(--color-error);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-error);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-error);
+}
+
+.filters {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.filterSelect {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+}
+
+.dayGroup {
+  margin-bottom: var(--spacing-xl);
+}
+
+.dayTitle {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+.noClasses {
+  color: var(--color-gray);
+  text-align: center;
+  padding: var(--spacing-xl);
+}

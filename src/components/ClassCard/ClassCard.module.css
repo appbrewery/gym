@@ -1,0 +1,102 @@
+/* ClassCard component styles */
+.card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  transition: opacity 0.3s ease;
+}
+
+.card.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.card.past {
+  opacity: 0.6;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.cardContent {
+  /* No additional styles needed */
+}
+
+.className {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-lg);
+}
+
+.className.yoga {
+  color: var(--color-yoga);
+}
+
+.className.spin {
+  color: var(--color-spin);
+}
+
+.className.hiit {
+  color: var(--color-hiit);
+}
+
+.classDetail {
+  margin: var(--spacing-xs) 0;
+  font-size: var(--font-size-base);
+}
+
+.cardActions {
+  /* No additional styles needed */
+}
+
+.completedLabel {
+  color: var(--color-gray);
+  font-size: var(--font-size-base);
+}
+
+.bookButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: opacity 0.2s ease;
+}
+
+.bookButton:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.bookButton:disabled {
+  cursor: not-allowed;
+}
+
+.bookButton.available {
+  background-color: var(--color-book);
+}
+
+.bookButton.booked {
+  background-color: var(--color-booked);
+}
+
+.bookButton.waitlist {
+  background-color: var(--color-waitlist);
+}
+
+.bookButton.waitlisted {
+  background-color: var(--color-gray);
+}
+
+.bookButton.loading {
+  background-color: var(--bg-disabled);
+}
+
+.errorMessage {
+  margin-top: var(--spacing-sm);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}

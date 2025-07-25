@@ -1,0 +1,52 @@
+/* Navigation component styles */
+.nav {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: var(--spacing-xl);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftSection {
+  display: flex;
+  gap: var(--spacing-xl);
+}
+
+.logo {
+  text-decoration: none;
+  font-weight: bold;
+  color: inherit;
+}
+
+.navLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.rightSection {
+  /* No additional styles needed */
+}
+
+.userSection {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+}
+
+.button:hover {
+  opacity: 0.9;
+}

@@ -1,10 +1,12 @@
 import Navigation from '../components/Navigation/Navigation';
+import '../styles/globals.css';
+import '../styles/variables.css';
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <Navigation />
-      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
+      <main className="container">
         <Component {...pageProps} />
       </main>
     </>

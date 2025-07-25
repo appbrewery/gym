@@ -1,0 +1,192 @@
+/* Admin page styles */
+.adminContainer {
+  /* No additional styles needed */
+}
+
+.pageTitle {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xl);
+}
+
+.errorMessage {
+  color: var(--color-error);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-error);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-error);
+}
+
+.section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.sectionTitle {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statCard {
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+}
+
+.statCard h3 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 1.5rem;
+}
+
+.statCard p {
+  margin: var(--spacing-xs) 0 0 0;
+  color: var(--color-gray);
+}
+
+.controlPanel {
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--bg-secondary);
+}
+
+.controlGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.controlGroup:last-child {
+  margin-bottom: 0;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.checkboxDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray);
+  margin: var(--spacing-sm) 0 0 1.5rem;
+}
+
+.nestedControls {
+  margin-left: 1.5rem;
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+}
+
+.inputGroup {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.numberInput {
+  width: 80px;
+  margin-left: var(--spacing-sm);
+  padding: var(--spacing-xs);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.slider {
+  width: 200px;
+}
+
+.timeStatus {
+  margin-bottom: var(--spacing-md);
+}
+
+.timeStatusValue {
+  font-size: var(--font-size-lg);
+  margin: var(--spacing-sm) 0;
+}
+
+.timeStatusValue.realTime {
+  color: var(--color-success);
+}
+
+.timeStatusValue.simulated {
+  color: var(--color-warning);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-md);
+}
+
+.button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: opacity 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.button:disabled {
+  background-color: var(--bg-disabled) !important;
+  cursor: not-allowed;
+}
+
+.button.primary {
+  background-color: var(--color-primary);
+}
+
+.button.secondary {
+  background-color: var(--color-yoga);
+}
+
+.button.danger {
+  background-color: var(--color-error);
+}
+
+.button.warning {
+  background-color: var(--color-warning);
+}
+
+.button.large {
+  padding: calc(var(--spacing-sm) * 1.5) var(--spacing-lg);
+  font-size: var(--font-size-base);
+}
+
+.helpText {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray);
+  margin-top: var(--spacing-sm);
+}

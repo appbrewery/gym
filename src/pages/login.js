@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { login, register } from '../lib/auth';
 import { withNetworkSimulation } from '../lib/network';
+import styles from './Login.module.css';
 
 export default function Login() {
   const router = useRouter();
@@ -53,34 +54,29 @@ export default function Login() {
   };
 
   return (
-    <div id="login-page" style={{ maxWidth: '400px', margin: '0 auto' }}>
-      <h1>{isLogin ? 'Login' : 'Register'}</h1>
+    <div id="login-page" className={styles.loginContainer}>
+      <h1 className={styles.pageTitle}>{isLogin ? 'Login' : 'Register'}</h1>
       
       {isLogin && (
-        <div style={{ 
-          marginBottom: '1.5rem', 
-          padding: '1rem', 
-          backgroundColor: '#f3f4f6', 
-          borderRadius: '8px' 
-        }}>
-          <h3 style={{ marginTop: 0 }}>Test Credentials</h3>
-          <div style={{ marginBottom: '0.5rem' }}>
+        <div className={styles.testCredentials}>
+          <h3>Test Credentials</h3>
+          <div className={styles.credentialGroup}>
             <strong>Student Account:</strong>
-            <p style={{ margin: '0.25rem 0' }}>Email: student@test.com</p>
-            <p style={{ margin: '0.25rem 0' }}>Password: password123</p>
+            <p className={styles.credentialDetail}>Email: student@test.com</p>
+            <p className={styles.credentialDetail}>Password: password123</p>
           </div>
-          <div>
+          <div className={styles.credentialGroup}>
             <strong>Admin Account:</strong>
-            <p style={{ margin: '0.25rem 0' }}>Email: admin@test.com</p>
-            <p style={{ margin: '0.25rem 0' }}>Password: admin123</p>
+            <p className={styles.credentialDetail}>Email: admin@test.com</p>
+            <p className={styles.credentialDetail}>Password: admin123</p>
           </div>
         </div>
       )}
       
       <form id="login-form" onSubmit={handleSubmit}>
         {!isLogin && (
-          <div style={{ marginBottom: '1rem' }}>
-            <label htmlFor="name-input" style={{ display: 'block', marginBottom: '0.5rem' }}>
+          <div className={styles.formGroup}>
+            <label htmlFor="name-input" className={styles.label}>
               Name
             </label>
             <input
@@ -90,13 +86,13 @@ export default function Login() {
               value={formData.name}
               onChange={handleInputChange}
               required={!isLogin}
-              style={{ width: '100%', padding: '0.5rem', fontSize: '1rem' }}
+              className={styles.input}
             />
           </div>
         )}
         
-        <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="email-input" style={{ display: 'block', marginBottom: '0.5rem' }}>
+        <div className={styles.formGroup}>
+          <label htmlFor="email-input" className={styles.label}>
             Email
           </label>
           <input
@@ -106,12 +102,12 @@ export default function Login() {
             value={formData.email}
             onChange={handleInputChange}
             required
-            style={{ width: '100%', padding: '0.5rem', fontSize: '1rem' }}
+            className={styles.input}
           />
         </div>
         
-        <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="password-input" style={{ display: 'block', marginBottom: '0.5rem' }}>
+        <div className={styles.formGroup}>
+          <label htmlFor="password-input" className={styles.label}>
             Password
           </label>
           <input
@@ -122,18 +118,12 @@ export default function Login() {
             onChange={handleInputChange}
             required
             minLength={6}
-            style={{ width: '100%', padding: '0.5rem', fontSize: '1rem' }}
+            className={styles.input}
           />
         </div>
         
         {error && (
-          <div id="error-message" style={{ 
-            color: 'red', 
-            marginBottom: '1rem',
-            padding: '0.5rem',
-            border: '1px solid red',
-            borderRadius: '4px'
-          }}>
+          <div id="error-message" className={styles.errorMessage}>
             {error}
           </div>
         )}
@@ -142,36 +132,20 @@ export default function Login() {
           id="submit-button"
           type="submit"
           disabled={loading}
-          className={loading ? 'loading' : ''}
+          className={`${styles.submitButton} ${loading ? 'loading' : ''}`}
           aria-busy={loading}
-          style={{ 
-            width: '100%', 
-            padding: '0.75rem', 
-            fontSize: '1rem',
-            backgroundColor: loading ? '#ccc' : '#3B82F6',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: loading ? 'not-allowed' : 'pointer'
-          }}
         >
           {loading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
         </button>
       </form>
       
-      <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+      <div className={styles.toggleContainer}>
         <button
           onClick={() => {
             setIsLogin(!isLogin);
             setError('');
           }}
-          style={{ 
-            background: 'none', 
-            border: 'none', 
-            color: '#3B82F6',
-            cursor: 'pointer',
-            textDecoration: 'underline'
-          }}
+          className={styles.toggleButton}
         >
           {isLogin ? 'Need an account? Register' : 'Already have an account? Login'}
         </button>
