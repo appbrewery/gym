@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST="{\"index.js -> ../lib/testData\":{\"id\":\"index.js -> ../lib/testData\",\"files\":[]}}"

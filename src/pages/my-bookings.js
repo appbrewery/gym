@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { isAuthenticated, getCurrentUser } from '../lib/auth';
 import { getDB } from '../lib/db';
@@ -177,7 +178,7 @@ export default function MyBookings() {
       
       {bookings.length === 0 && waitlist.length === 0 ? (
         <div id="empty-bookings-state" className={styles.emptyState}>
-          <p>You haven't booked any classes yet. <a href="/schedule">Browse available classes</a></p>
+          <p>You haven't booked any classes yet. <Link href="/schedule">Browse available classes</Link></p>
         </div>
       ) : (
         <>

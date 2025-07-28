@@ -1,1 +1,6 @@
-{}
+{
+  "index.js -> ../lib/testData": {
+    "id": "index.js -> ../lib/testData",
+    "files": []
+  }
+}
