@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { getCurrentUser, logout } from '../../lib/auth';
-import styles from './Navigation.module.css';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getCurrentUser, logout } from "../../lib/auth";
+import styles from "./Navigation.module.css";
 
 export default function Navigation() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function Navigation() {
   const handleLogout = () => {
     logout();
     setUser(null);
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -27,19 +27,31 @@ export default function Navigation() {
           <Link href="/" id="home-link" className={styles.logo}>
             Snack & Lift
           </Link>
-          
+
           {user && (
             <>
-              {user.membershipType === 'admin' ? (
-                <Link href="/admin" id="admin-panel-link" className={styles.navLink}>
+              {user.membershipType === "admin" ? (
+                <Link
+                  href="/admin"
+                  id="admin-panel-link"
+                  className={styles.navLink}
+                >
                   Admin Panel
                 </Link>
               ) : (
                 <>
-                  <Link href="/schedule" id="schedule-link" className={styles.navLink}>
+                  <Link
+                    href="/schedule"
+                    id="schedule-link"
+                    className={styles.navLink}
+                  >
                     Class Schedule
                   </Link>
-                  <Link href="/my-bookings" id="my-bookings-link" className={styles.navLink}>
+                  <Link
+                    href="/my-bookings"
+                    id="my-bookings-link"
+                    className={styles.navLink}
+                  >
                     My Bookings
                   </Link>
                 </>
@@ -47,18 +59,18 @@ export default function Navigation() {
             </>
           )}
         </div>
-        
+
         <div className={styles.rightSection}>
           {user ? (
-            <div 
-              id="user-info-section" 
+            <div
+              id="user-info-section"
               className={styles.userSection}
               data-user-name={user.name}
               data-user-type={user.membershipType}
               data-user-id={user.userId}
             >
               <span id="welcome-message">Welcome, {user.name}</span>
-              <button 
+              <button
                 id="logout-button"
                 onClick={handleLogout}
                 className={styles.button}
@@ -68,10 +80,7 @@ export default function Navigation() {
             </div>
           ) : (
             <Link href="/login">
-              <button 
-                id="login-button"
-                className={styles.button}
-              >
+              <button id="login-button" className={styles.button}>
                 Login
               </button>
             </Link>
