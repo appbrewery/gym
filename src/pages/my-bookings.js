@@ -162,7 +162,7 @@ export default function MyBookings() {
   return (
     <div 
       id="my-bookings-page" 
-      className={styles.bookingsContainer}
+      className={styles.pageContainer}
       data-bookings-count={bookings.length}
       data-waitlist-count={waitlist.length}
       data-loading={loading}

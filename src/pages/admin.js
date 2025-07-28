@@ -1,12 +1,18 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { getCurrentUser } from '../lib/auth';
-import { getDB } from '../lib/db';
-import { updateNetworkSettings } from '../lib/network';
-import { resetAllData, clearBookingsOnly } from '../lib/testData';
-import { withNetworkSimulation } from '../lib/network';
-import { getTimeOffset, advanceTime, resetTime, formatTimeOffset, initializeTimeSimulation } from '../lib/timeSimulation';
-import styles from './Admin.module.css';
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getCurrentUser } from "../lib/auth";
+import { getDB } from "../lib/db";
+import { updateNetworkSettings } from "../lib/network";
+import { resetAllData, clearBookingsOnly } from "../lib/testData";
+import { withNetworkSimulation } from "../lib/network";
+import {
+  getTimeOffset,
+  advanceTime,
+  resetTime,
+  formatTimeOffset,
+  initializeTimeSimulation,
+} from "../lib/timeSimulation";
+import styles from "./Admin.module.css";
 
 export default function Admin() {
   const router = useRouter();
@@ -15,15 +21,15 @@ export default function Admin() {
   const [updating, setUpdating] = useState(false);
   const [resetting, setResetting] = useState(false);
   const [stats, setStats] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [timeOffset, setTimeOffset] = useState(0);
   const [adjustingTime, setAdjustingTime] = useState(false);
 
   useEffect(() => {
     // Redirect to login if not authenticated or not admin
     const user = getCurrentUser();
-    if (!user || user.membershipType !== 'admin') {
-      router.push('/');
+    if (!user || user.membershipType !== "admin") {
+      router.push("/");
       return;
     }
 
@@ -34,28 +40,30 @@ export default function Admin() {
   const loadAdminData = async () => {
     try {
       const db = await getDB();
-      
+
       // Load network settings
-      const settings = await db.get('systemSettings', 'network_config');
-      setNetworkSettings(settings || {
-        enabled: false,  // Disabled by default
-        minDelay: 500,
-        maxDelay: 2000,
-        failureRate: 0.1
-      });
+      const settings = await db.get("systemSettings", "network_config");
+      setNetworkSettings(
+        settings || {
+          enabled: false, // Disabled by default
+          minDelay: 500,
+          maxDelay: 2000,
+          failureRate: 0.1,
+        }
+      );
 
       // Load system statistics
-      const users = await db.getAll('users');
-      const classes = await db.getAll('classes');
-      const bookings = await db.getAll('bookings');
-      const waitlist = await db.getAll('waitlist');
+      const users = await db.getAll("users");
+      const classes = await db.getAll("classes");
+      const bookings = await db.getAll("bookings");
+      const waitlist = await db.getAll("waitlist");
 
       setStats({
         users: users.length,
         classes: classes.length,
         bookings: bookings.length,
         waitlist: waitlist.length,
-        fullClasses: classes.filter(c => c.status === 'full').length
+        fullClasses: classes.filter((c) => c.status === "full").length,
       });
 
       // Load time offset
@@ -63,26 +71,26 @@ export default function Admin() {
 
       setLoading(false);
     } catch (err) {
-      console.error('Failed to load admin data:', err);
-      setError('Failed to load admin data');
+      console.error("Failed to load admin data:", err);
+      setError("Failed to load admin data");
       setLoading(false);
     }
   };
 
   const handleNetworkToggle = async () => {
     setUpdating(true);
-    setError('');
-    
+    setError("");
+
     try {
       const updatedSettings = {
         ...networkSettings,
-        enabled: !networkSettings.enabled
+        enabled: !networkSettings.enabled,
       };
-      
+
       await updateNetworkSettings(updatedSettings);
       setNetworkSettings(updatedSettings);
     } catch (err) {
-      setError('Failed to update network settings');
+      setError("Failed to update network settings");
     } finally {
       setUpdating(false);
     }
@@ -90,54 +98,62 @@ export default function Admin() {
 
   const handleNetworkSettingChange = async (field, value) => {
     setUpdating(true);
-    setError('');
-    
+    setError("");
+
     try {
       const updatedSettings = {
         ...networkSettings,
-        [field]: value
+        [field]: value,
       };
-      
+
       await updateNetworkSettings(updatedSettings);
       setNetworkSettings(updatedSettings);
     } catch (err) {
-      setError('Failed to update network settings');
+      setError("Failed to update network settings");
     } finally {
       setUpdating(false);
     }
   };
 
   const handleResetAllData = async () => {
-    if (!confirm('Are you sure you want to reset ALL data? This will delete all users, classes, and bookings except the default accounts.')) {
+    if (
+      !confirm(
+        "Are you sure you want to reset ALL data? This will delete all users, classes, and bookings except the default accounts."
+      )
+    ) {
       return;
     }
 
     setResetting(true);
-    setError('');
-    
+    setError("");
+
     try {
       await resetAllData();
       await loadAdminData();
     } catch (err) {
-      setError('Failed to reset data');
+      setError("Failed to reset data");
     } finally {
       setResetting(false);
     }
   };
 
   const handleClearBookings = async () => {
-    if (!confirm('Are you sure you want to clear all bookings and waitlists? Classes and users will remain.')) {
+    if (
+      !confirm(
+        "Are you sure you want to clear all bookings and waitlists? Classes and users will remain."
+      )
+    ) {
       return;
     }
 
     setResetting(true);
-    setError('');
-    
+    setError("");
+
     try {
       await clearBookingsOnly();
       await loadAdminData();
     } catch (err) {
-      setError('Failed to clear bookings');
+      setError("Failed to clear bookings");
     } finally {
       setResetting(false);
     }
@@ -145,15 +161,15 @@ export default function Admin() {
 
   const handleAdvanceTime = async (amount, unit) => {
     setAdjustingTime(true);
-    setError('');
-    
+    setError("");
+
     try {
       const newOffset = await advanceTime(amount, unit);
       setTimeOffset(newOffset);
       // Refresh stats as class statuses may have changed
       await loadAdminData();
     } catch (err) {
-      setError('Failed to advance time');
+      setError("Failed to advance time");
     } finally {
       setAdjustingTime(false);
     }
@@ -161,14 +177,14 @@ export default function Admin() {
 
   const handleResetTime = async () => {
     setAdjustingTime(true);
-    setError('');
-    
+    setError("");
+
     try {
       await resetTime();
       setTimeOffset(0);
       await loadAdminData();
     } catch (err) {
-      setError('Failed to reset time');
+      setError("Failed to reset time");
     } finally {
       setAdjustingTime(false);
     }
@@ -179,15 +195,15 @@ export default function Admin() {
   }
 
   return (
-    <div 
-      id="admin-page" 
-      className={styles.adminContainer}
+    <div
+      id="admin-page"
+      className={styles.pageContainer}
       data-network-enabled={networkSettings?.enabled || false}
       data-time-offset={timeOffset}
       data-loading={loading}
     >
       <h1 className={styles.pageTitle}>Admin Panel</h1>
-      
+
       {error && (
         <div id="error-message" className={styles.errorMessage}>
           {error}
@@ -237,7 +253,9 @@ export default function Admin() {
               <strong>Enable Network Simulation</strong>
             </label>
             <p className={styles.checkboxDescription}>
-              {networkSettings?.enabled ? 'Network delays and failures are active' : 'All operations will be instant'}
+              {networkSettings?.enabled
+                ? "Network delays and failures are active"
+                : "All operations will be instant"}
             </p>
           </div>
 
@@ -254,7 +272,12 @@ export default function Admin() {
                       id="min-delay-input"
                       type="number"
                       value={networkSettings.minDelay || 500}
-                      onChange={(e) => handleNetworkSettingChange('minDelay', parseInt(e.target.value))}
+                      onChange={(e) =>
+                        handleNetworkSettingChange(
+                          "minDelay",
+                          parseInt(e.target.value)
+                        )
+                      }
                       min="0"
                       max="5000"
                       className={styles.numberInput}
@@ -267,7 +290,12 @@ export default function Admin() {
                       id="max-delay-input"
                       type="number"
                       value={networkSettings.maxDelay || 2000}
-                      onChange={(e) => handleNetworkSettingChange('maxDelay', parseInt(e.target.value))}
+                      onChange={(e) =>
+                        handleNetworkSettingChange(
+                          "maxDelay",
+                          parseInt(e.target.value)
+                        )
+                      }
                       min="0"
                       max="10000"
                       className={styles.numberInput}
@@ -279,7 +307,10 @@ export default function Admin() {
 
               <div>
                 <label className={styles.label}>
-                  <strong>Failure Rate: {Math.round((networkSettings.failureRate || 0) * 100)}%</strong>
+                  <strong>
+                    Failure Rate:{" "}
+                    {Math.round((networkSettings.failureRate || 0) * 100)}%
+                  </strong>
                 </label>
                 <input
                   id="failure-rate-slider"
@@ -287,8 +318,13 @@ export default function Admin() {
                   min="0"
                   max="0.5"
                   step="0.05"
-                  value={networkSettings.failureRate || 0.1}
-                  onChange={(e) => handleNetworkSettingChange('failureRate', parseFloat(e.target.value))}
+                  value={networkSettings.failureRate || 0.0}
+                  onChange={(e) =>
+                    handleNetworkSettingChange(
+                      "failureRate",
+                      parseFloat(e.target.value)
+                    )
+                  }
                   className={styles.slider}
                   disabled={updating}
                 />
@@ -304,7 +340,11 @@ export default function Admin() {
         <div className={styles.controlPanel}>
           <div className={styles.timeStatus}>
             <strong>Current Time Status:</strong>
-            <p className={`${styles.timeStatusValue} ${timeOffset === 0 ? styles.realTime : styles.simulated}`}>
+            <p
+              className={`${styles.timeStatusValue} ${
+                timeOffset === 0 ? styles.realTime : styles.simulated
+              }`}
+            >
               {formatTimeOffset(timeOffset)}
             </p>
           </div>
@@ -312,7 +352,7 @@ export default function Admin() {
           <div className={styles.buttonGroup}>
             <button
               id="advance-1-hour"
-              onClick={() => handleAdvanceTime(1, 'hours')}
+              onClick={() => handleAdvanceTime(1, "hours")}
               disabled={adjustingTime}
               className={`${styles.button} ${styles.primary}`}
             >
@@ -320,7 +360,7 @@ export default function Admin() {
             </button>
             <button
               id="advance-6-hours"
-              onClick={() => handleAdvanceTime(6, 'hours')}
+              onClick={() => handleAdvanceTime(6, "hours")}
               disabled={adjustingTime}
               className={`${styles.button} ${styles.primary}`}
             >
@@ -328,7 +368,7 @@ export default function Admin() {
             </button>
             <button
               id="advance-1-day"
-              onClick={() => handleAdvanceTime(1, 'days')}
+              onClick={() => handleAdvanceTime(1, "days")}
               disabled={adjustingTime}
               className={`${styles.button} ${styles.secondary}`}
             >
@@ -336,7 +376,7 @@ export default function Admin() {
             </button>
             <button
               id="advance-3-days"
-              onClick={() => handleAdvanceTime(3, 'days')}
+              onClick={() => handleAdvanceTime(3, "days")}
               disabled={adjustingTime}
               className={`${styles.button} ${styles.secondary}`}
             >
@@ -353,8 +393,9 @@ export default function Admin() {
           </div>
 
           <p className={styles.helpText}>
-            Time simulation affects class scheduling, "Today/Tomorrow" labels, and past class filtering.
-            Classes that become "past" due to time advancement will be hidden from the schedule.
+            Time simulation affects class scheduling, "Today/Tomorrow" labels,
+            and past class filtering. Classes that become "past" due to time
+            advancement will be hidden from the schedule.
           </p>
         </div>
       </div>
@@ -369,16 +410,16 @@ export default function Admin() {
             disabled={resetting}
             className={`${styles.button} ${styles.danger} ${styles.large}`}
           >
-            {resetting ? 'Resetting...' : 'Reset All Data'}
+            {resetting ? "Resetting..." : "Reset All Data"}
           </button>
-          
+
           <button
             id="clear-bookings-button"
             onClick={handleClearBookings}
             disabled={resetting}
             className={`${styles.button} ${styles.warning} ${styles.large}`}
           >
-            {resetting ? 'Clearing...' : 'Clear Bookings Only'}
+            {resetting ? "Clearing..." : "Clear Bookings Only"}
           </button>
         </div>
         <p className={styles.helpText}>

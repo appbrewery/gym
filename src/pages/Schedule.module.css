@@ -1,4 +1,10 @@
 /* Schedule page styles */
+.pageContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
 .scheduleTitle {
   margin-bottom: var(--spacing-xl);
   color: var(--color-primary);

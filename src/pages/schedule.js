@@ -113,6 +113,7 @@ export default function Schedule() {
   return (
     <div 
       id="schedule-page"
+      className={styles.pageContainer}
       data-selected-type={selectedType}
       data-selected-day={selectedDay}
       data-results-count={filteredClasses.length}
