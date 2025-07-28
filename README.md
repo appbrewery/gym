@@ -138,9 +138,21 @@ src/
     └── dateHelpers.js     # Date formatting utilities
 ```
 
-## Contributing
+## Photo Credits
 
-This is a demonstration application designed for educational purposes. Feel free to explore the code, test different scenarios, and understand how a modern web application handles complex user interactions with simulated real-world conditions.
+
+Photo by [Edgar Chaparro](https://unsplash.com/@echaparro?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/grayscale-photo-of-man-working-out-sHfo3WOgGTU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+Photo by [Victor Freitas](https://unsplash.com/@victorfreitas?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/person-about-to-lift-the-barbel-WvDYdXDzkhs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+Photo by [Sven Mieke](https://unsplash.com/@sxoxm?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/woman-lifting-barbell-jO6vBWX9h9Y?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+Photo by [Ginny Rose Stewart](https://unsplash.com/@ginnyrose?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/woman-in-black-tank-top-and-black-pants-bending-her-body-on-floor-UxkcSzRWM2s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+Photo by [Karsten Winegeart](https://unsplash.com/@karsten116?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/woman-in-black-tank-top-sitting-on-brown-wooden-bench-0Wra5YYVQJE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+Photo by [Trust "Tru" Katsande](https://unsplash.com/@iamtru?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/women-taking-exercise-on-black-stationary-bikes-in-front-of-gray-concrete-wall-A_ftsTh53lM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
 
 ---
 
