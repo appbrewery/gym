@@ -39,7 +39,7 @@ export function isToday(dateTimeString) {
 
 export function isTomorrow(dateTimeString) {
   const date = new Date(dateTimeString);
-  const tomorrow = getSimulatedTime();
+  const tomorrow = new Date(getSimulatedTime());
   tomorrow.setDate(tomorrow.getDate() + 1);
   return date.toDateString() === tomorrow.toDateString();
 }

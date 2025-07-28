@@ -10,6 +10,14 @@ const nextConfig = {
   assetPrefix: isProd ? '/gym' : '',
   images: {
     unoptimized: true
+  },
+  webpack: (config, { isServer }) => {
+    // Disable webpack cache warnings for CSS modules
+    config.infrastructureLogging = {
+      level: 'error',
+    };
+    
+    return config;
   }
 }
 
