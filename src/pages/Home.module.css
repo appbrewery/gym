@@ -1,10 +1,13 @@
 /* Home page styles */
 .homeContainer {
-  /* No additional styles needed */
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* Hero Section */
 .heroSection {
+  width: 100%;
   height: 80vh;
   background-image: linear-gradient(rgba(34, 40, 49, 0.7), rgba(34, 40, 49, 0.7)), 
                     url('/main-edgar-chaparro-sHfo3WOgGTU-unsplash-min.jpg');
@@ -17,6 +20,7 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  margin: 0;
 }
 
 .heroContent {
@@ -96,8 +100,10 @@
 
 /* Classes Section */
 .classesSection {
+  width: 100%;
   padding: var(--spacing-2xl) 0;
   background-color: var(--bg-primary);
+  margin: 0;
 }
 
 .sectionTitle {
@@ -182,8 +188,10 @@
 
 /* About Section */
 .aboutSection {
+  width: 100%;
   padding: var(--spacing-2xl) 0;
   background-color: var(--bg-secondary);
+  margin: 0;
 }
 
 .aboutContent {
@@ -237,8 +245,10 @@
 
 /* Testimonials Section */
 .testimonialsSection {
+  width: 100%;
   padding: var(--spacing-2xl) 0;
   background-color: var(--bg-primary);
+  margin: 0;
 }
 
 .testimonialsGrid {
@@ -277,9 +287,11 @@
 
 /* Status Section */
 .statusSection {
+  width: 100%;
   text-align: center;
   padding: var(--spacing-md) 0;
   background-color: var(--bg-secondary);
+  margin: 0;
 }
 
 .statusText {
