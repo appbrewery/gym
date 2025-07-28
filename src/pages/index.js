@@ -72,7 +72,12 @@ export default function Home() {
       data-init-status={initStatus}
     >
       {/* Hero Section */}
-      <section className={styles.heroSection}>
+      <section 
+        className={styles.heroSection}
+        style={{
+          backgroundImage: `linear-gradient(rgba(34, 40, 49, 0.7), rgba(34, 40, 49, 0.7)), url('${getAssetPath("/main-edgar-chaparro-sHfo3WOgGTU-unsplash-min.jpg")}')`
+        }}
+      >
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>Snack & Lift</h1>
           <p className={styles.heroTagline}>
