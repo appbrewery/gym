@@ -1,189 +1,147 @@
-# Gym Booking Simulator - Static Testing Site
+# Snack & Lift - Gym Class Booking System
 
-A static Next.js application that simulates a gym class booking system for Selenium testing practice. Everything runs client-side with IndexedDB for persistence.
+Welcome to **Snack & Lift**. This is a web application for practicing booking fitness classes (Yoga, Spin, and HIIT).
 
-## Project Overview
+> *"Lift Weights. Eat Snacks. Repeat."*
+> *"Where Gains and Grazing Coexist."*
 
-Create a realistic gym booking website where students can practice Selenium automation. The site simulates network delays, authentication, booking flows, and various edge cases - all without requiring a backend.
+## About the Application
 
-## Core Features
+Snack & Lift is a client-side gym booking system built for testing and demonstration purposes. The application simulates a real gym booking experience with authentication, class scheduling, booking management, and network delays - all running entirely in your browser using IndexedDB for data persistence.
 
-- **Authentication**: Mock login/registration with session persistence
-- **Class Booking**: Book yoga, spin, and HIIT classes with capacity limits
-- **Network Simulation**: Configurable delays and random failures
-- **Data Persistence**: Uses IndexedDB to store users, classes, and bookings
-- **Admin Panel**: Reset data and configure network settings
-- **Selenium-Friendly**: Consistent IDs and data attributes for easy testing
+## Getting Started
 
-## Tech Stack
+### Installation & Setup (local)
 
-- **Next.js** (static site generation)
-- **React** 
-- **IndexedDB** for client-side data persistence
-- **Pure CSS** (no external UI libraries needed)
-- **No backend required**
+1. Clone this repository
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+The application will automatically initialize with sample data when you first visit.
+
+### Test Accounts
+
+The system comes pre-configured with test accounts for different user types:
+
+#### Student Account
+- **Email**: `student@test.com`
+- **Password**: `password123`
+- **Access**: Can book classes, view bookings, join waitlists
+
+#### Admin Account
+- **Email**: `admin@test.com`
+- **Password**: `admin123`
+- **Access**: Full admin panel with network simulation and data management controls
+
+You can also register new accounts through the registration form.
+
+## Features
+
+### For Students
+- **Browse Classes**: View available Yoga, Spin, and HIIT classes
+- **Book Classes**: Reserve spots in upcoming classes
+- **Manage Bookings**: View confirmed bookings and cancel if needed
+- **Waitlist System**: Join waitlists for full classes
+- **Network Simulation**: Experience realistic network delays and occasional failures
+
+### For Administrators
+- **System Statistics**: View user counts, class capacity, and booking metrics
+- **Network Simulation Controls**: Toggle network delays and failure rates
+- **Time Simulation**: Advance system time to test different scenarios
+- **Data Management**: Reset all data or clear bookings only
+
+## Class Types
+
+The gym offers three types of classes:
+
+- **Yoga** (60 minutes, 20 spots): Find your inner peace and flexibility... or just nap in child's pose
+- **Spin** (45 minutes, 10 spots): Go nowhere fast, but with great music  
+- **HIIT** (30 minutes, 15 spots): Maximum results in minimum time (snack break included)
+
+## Technical Architecture
+
+### Database Schema
+The application uses IndexedDB for client-side data persistence with the following stores:
+
+- **users**: User accounts and profiles
+- **classes**: Class schedules and capacity information
+- **bookings**: Confirmed class reservations
+- **waitlist**: Waitlist entries for full classes
+- **systemSettings**: Network simulation and admin configurations
+
+### Test Data Generation
+The system automatically generates:
+- 3 weeks of classes (1 week past, 2 weeks future)
+- 6 daily time slots: 7AM, 8AM, 9AM, 5PM, 6PM, 7PM
+- Varied booking levels (some available, some full, some with waitlists)
+- Past classes marked as completed
+
+### Network Simulation
+The admin panel allows configuration of realistic network conditions:
+- Configurable delay ranges (500ms - 2000ms default)
+- Adjustable failure rates (0-50%)
+- Toggle between instant and simulated network responses
+
+## Development & Testing
+
+### Technology Stack
+- **Next.js** - React framework with static site generation
+- **React** - Component-based UI library
+- **IndexedDB** - Client-side data persistence
+- **CSS Modules** - Scoped styling
+- **No backend required** - Fully client-side application
+
+### Testing Considerations
+The application includes consistent element IDs and data attributes to support automated testing. Key areas to focus on include:
+
+1. **Authentication Flow**: Login/logout functionality
+2. **Class Browsing**: Schedule viewing and filtering
+3. **Booking Operations**: Successful bookings and error handling
+4. **Waitlist Management**: Joining and leaving waitlists
+5. **Network Error Handling**: Resilience during simulated failures
+6. **Admin Functions**: Data management and system configuration
+
+### Admin Panel Features
+
+The admin panel (`/admin`) provides powerful testing and demonstration tools:
+
+- **Network Simulation**: Enable/disable delays and failures
+- **Time Controls**: Advance system time to test different scenarios
+- **Data Reset**: Clear all bookings or reset entire system
+- **System Statistics**: Monitor application usage and state
 
 ## File Structure
 
 ```
-gym-booking-simulator/
-├── pages/
-│   ├── index.js          # Landing page
-│   ├── login.js          # Login/Register
-│   ├── schedule.js       # Class schedule
-│   ├── my-bookings.js    # User bookings
-│   └── admin.js          # Admin controls
+src/
 ├── components/
-│   ├── ClassCard.js      # Class display component
-│   ├── BookingModal.js   # Booking confirmation
-│   ├── NetworkSimulator.js # Network delay controls
-│   └── [other components]
+│   ├── ClassCard/          # Individual class display
+│   └── Navigation/         # Site navigation
 ├── lib/
-│   ├── db.js             # IndexedDB wrapper
-│   ├── auth.js           # Mock authentication
-│   ├── network.js        # Network simulation
-│   └── testData.js       # Initial seed data
+│   ├── auth.js            # Authentication logic
+│   ├── classUtils.js      # Class management utilities
+│   ├── db.js              # IndexedDB wrapper
+│   ├── network.js         # Network simulation
+│   ├── testData.js        # Sample data generation
+│   └── timeSimulation.js  # Time advancement features
+├── pages/
+│   ├── admin.js           # Admin control panel
+│   ├── index.js           # Landing page
+│   ├── login.js           # Authentication
+│   ├── my-bookings.js     # User booking management
+│   └── schedule.js        # Class schedule
+├── styles/
+│   ├── globals.css        # Global styles
+│   └── variables.css      # CSS custom properties
 └── utils/
-    └── dateHelpers.js    # Date formatting utilities
+    └── dateHelpers.js     # Date formatting utilities
 ```
 
-## Key Implementation Details
+## Contributing
 
-### 1. IndexedDB Schema
+This is a demonstration application designed for educational purposes. Feel free to explore the code, test different scenarios, and understand how a modern web application handles complex user interactions with simulated real-world conditions.
 
-**Stores:**
-- `users`: {id, email, password, name, memberSince, membershipType}
-- `classes`: {id, type, name, instructor, dateTime, duration, capacity, currentBookings, status}
-- `bookings`: {id, userId, classId, bookedAt, status}
-- `waitlist`: {id, userId, classId, joinedAt}
-- `systemSettings`: Network simulation config
+---
 
-### 2. Class Types & Capacity
-- **Yoga**: 20 spots, 60 min, purple theme (#8B5CF6)
-- **Spin**: 10 spots, 45 min, blue theme (#3B82F6)
-- **HIIT**: 15 spots, 30 min, red theme (#EF4444)
-
-### 3. Test Data Generation
-- 3 weeks of classes (7 days past, 14 days future)
-- 6 time slots per day (7am, 8am, 9am, 5pm, 6pm, 7pm)
-- Random booking levels (some full, some available)
-- Past classes marked as "completed"
-
-### 4. Network Simulation
-```javascript
-{
-  enabled: true,
-  minDelay: 500,      // milliseconds
-  maxDelay: 2000,     // milliseconds
-  failureRate: 0.1    // 10% chance of failure
-}
-```
-
-### 5. Selenium Selectors Pattern
-
-**IDs:**
-- Login form: `#login-form`
-- Email input: `#email-input`
-- Book button: `#book-button-{classId}`
-- Class card: `#class-card-{classId}`
-- Modal: `#booking-modal`
-
-**Data Attributes:**
-- `data-class-id="{classId}"`
-- `data-class-type="{yoga|spin|hiit}"`
-- `data-class-status="{available|full|completed}"`
-- `data-available-spots="{number}"`
-
-**Classes:**
-- Loading state: `.loading`
-- Error state: `.error`
-- Success state: `.success`
-
-### 6. Authentication Flow
-- Default user: `student@test.com` / `password123`
-- Auth stored in sessionStorage
-- Protected routes redirect to login
-- Mock token generation
-
-### 7. Booking Rules
-- Can't book past classes
-- Can't book same class twice
-- Full classes offer waitlist
-- Network delays on all operations
-- Random failures based on config
-
-### 8. Error Handling
-- Network timeouts
-- Class full errors
-- Authentication failures
-- Form validation errors
-- All errors display in `#error-message`
-
-### 9. Admin Features
-- Reset all data button
-- Clear bookings only
-- Toggle maintenance mode
-- Network simulation controls
-- View system statistics
-
-## Component Examples
-
-### ClassCard Component
-```jsx
-<div 
-  className="class-card"
-  id="class-card-yoga-2025-01-15-0700"
-  data-class-id="yoga-2025-01-15-0700"
-  data-class-type="yoga"
-  data-class-status="available"
->
-  <button id="book-button-yoga-2025-01-15-0700">
-    Book Class
-  </button>
-</div>
-```
-
-### Loading States
-```jsx
-// Add 'loading' class during async operations
-<div className={`class-card ${isLoading ? 'loading' : ''}`}>
-  <button aria-busy={isLoading}>
-    {isLoading ? 'Booking...' : 'Book Class'}
-  </button>
-</div>
-```
-
-## Setup Instructions
-
-1. Create Next.js app: `npx create-next-app@latest gym-booking-simulator`
-2. Install as static site (no API routes needed)
-3. Copy the provided components and lib files
-4. Build: `npm run build && npm run export`
-5. Deploy the `out` directory to any static host
-
-## Testing Scenarios for Students
-
-1. **Happy Path**: Login → Browse classes → Book available class → View booking
-2. **Full Class**: Attempt to book full class → Join waitlist
-3. **Network Issues**: Enable high failure rate → Retry operations
-4. **Validation**: Submit invalid forms → Check error messages
-5. **Past Classes**: Verify can't book completed classes
-6. **Double Booking**: Try booking same class twice
-7. **Reset Flow**: Use admin panel → Reset → Verify clean state
-
-## Deployment
-
-The site will be deployed to GitHub Pages (out of scope)
-
-No environment variables or backend setup required!
-
-## Notes for Implementation
-
-- Keep all business logic client-side
-- Use consistent ID patterns for Selenium
-- Add `aria-` attributes for accessibility
-- Include loading states on all async operations
-- Store auth in sessionStorage (not localStorage)
-- Make network delays visible to users
-- Provide clear error messages with IDs
-- Include data attributes for test assertions
+*Remember: At Snack & Lift, we believe the best workout is the one you actually show up for... eventually.*
