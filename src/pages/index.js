@@ -75,7 +75,7 @@ export default function Home() {
       <section 
         className={styles.heroSection}
         style={{
-          backgroundImage: `linear-gradient(rgba(34, 40, 49, 0.7), rgba(34, 40, 49, 0.7)), url('${getAssetPath("/main-edgar-chaparro-sHfo3WOgGTU-unsplash-min.jpg")}')`
+          '--hero-bg-image': `url('${getAssetPath("/main-edgar-chaparro-sHfo3WOgGTU-unsplash-min.jpg")}')`
         }}
       >
         <div className={styles.heroContent}>

@@ -9,6 +9,8 @@
 .heroSection {
   width: 100%;
   height: 80vh;
+  background-image: linear-gradient(rgba(34, 40, 49, 0.7), rgba(34, 40, 49, 0.7)), 
+                    var(--hero-bg-image);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
