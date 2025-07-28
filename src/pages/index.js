@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getDB } from "../lib/db";
 import { initializeTestData } from "../lib/testData";
 import { initializeTimeSimulation } from "../lib/timeSimulation";
+import { getAssetPath } from "../utils/assetHelpers";
 import styles from "./Home.module.css";
 
 export default function Home() {
@@ -106,7 +107,7 @@ export default function Home() {
               className={`${styles.classCard} ${styles.yoga}`}
             >
               <img
-                src="/yoga-ginny-rose-stewart-UxkcSzRWM2s-unsplash-min.jpg"
+                src={getAssetPath("/yoga-ginny-rose-stewart-UxkcSzRWM2s-unsplash-min.jpg")}
                 alt="Yoga"
                 className={styles.classImage}
               />
@@ -124,7 +125,7 @@ export default function Home() {
               className={`${styles.classCard} ${styles.spin}`}
             >
               <img
-                src="/spin-trust-tru-katsande-A_ftsTh53lM-unsplash-min.jpg"
+                src={getAssetPath("/spin-trust-tru-katsande-A_ftsTh53lM-unsplash-min.jpg")}
                 alt="Spin"
                 className={styles.classImage}
               />
@@ -141,7 +142,7 @@ export default function Home() {
               className={`${styles.classCard} ${styles.hiit}`}
             >
               <img
-                src="/HIIT-karsten-winegeart-0Wra5YYVQJE-unsplash-min.jpg"
+                src={getAssetPath("/HIIT-karsten-winegeart-0Wra5YYVQJE-unsplash-min.jpg")}
                 alt="HIIT"
                 className={styles.classImage}
               />

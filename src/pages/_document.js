@@ -1,10 +1,11 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import { getAssetPath } from '../utils/assetHelpers'
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href={getAssetPath("/favicon.png")} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link 
