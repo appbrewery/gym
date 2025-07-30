@@ -49,7 +49,14 @@ export function isPast(dateTimeString) {
 }
 
 export function getDayLabel(dateTimeString) {
-  if (isToday(dateTimeString)) return 'Today';
-  if (isTomorrow(dateTimeString)) return 'Tomorrow';
+  const date = new Date(dateTimeString);
+  const dateFormat = date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric'
+  });
+  
+  if (isToday(dateTimeString)) return `Today (${dateFormat})`;
+  if (isTomorrow(dateTimeString)) return `Tomorrow (${dateFormat})`;
   return formatDate(dateTimeString);
 }
